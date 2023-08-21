@@ -1,0 +1,1 @@
+{1: {'uid': 1, 'name': 'wsh', 'sex': '男', 'age': 10, 'score': 100}, 2: {'uid': 2, 'name': 'bb', 'sex': '女', 'age': 19, 'score': 99}}

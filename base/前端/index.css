@@ -1,0 +1,108 @@
+.header {
+    width: 33%;
+    height: 60px;
+    float: left;
+    text-align: center;
+}
+
+.header img {
+    height: 60px;
+}
+
+.header a {
+    text-decoration-line: none;
+    color: orange;
+    line-height: 60px
+}
+
+.nav {
+    height: 60px;
+    background-color: orange;
+}
+
+ul li {   
+    list-style: none; 
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+li {
+    float: left;
+    border-right: solid 3px yellow;
+    width: 150px;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;   
+    background-color: orange;
+}
+
+li:hover>a{
+    color: yellow;
+}
+
+li:hover{
+    background-color: yellowgreen;
+}
+
+.select li{
+    background-color: yellowgreen;
+    border-right: none;
+    border-top:  solid 3px rgb(103, 103, 194);
+    
+}
+.select li:hover{
+    background-color: rgba(113, 172, 231, 0.986);
+}
+.select li:hover>a{
+        color: blue;
+}
+
+.select ul{
+    position: relative;
+    display: none;
+    padding-left: 0;
+}
+.select:hover ul{
+    display: block;
+}
+
+.right {
+    float: left;
+    width: 85%;
+    height: 480px;
+    text-align: center;
+}
+
+.rightContent {
+    float: left;
+    width: 16%;
+    height: 240px;          
+}
+
+
+
+.img2 {
+    width: 90%; 
+    height: 70%;
+}
+
+p{
+    line-height: 10px;
+}
+
+.p1{
+    color: red;
+}
+
+.footer {
+    text-align: center;
+}
+
+.footer a {
+    color: orange;
+}

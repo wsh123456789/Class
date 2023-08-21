@@ -1,0 +1,1 @@
+{1: {'uid': 1, 'name': '1', 'sex': '1', 'age': 1, 'score': 1}, 2: {'uid': 2, 'name': '1', 'sex': '1', 'age': 1, 'score': 1}, 3: {'uid': 3, 'name': 'laoyu', 'sex': 'nan', 'age': 19, 'score': 90}}
