@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace即使不用到这个属性也不能为空 -->
+<mapper namespace="com.ah.mapper.UserMapper">
+
+	<resultMap type="com.ah.bean.User" id="queryMap">
+		<result column="id" property="id" />
+		<result column="username" property="username" />
+		<result column="password" property="password" />
+		<result column="age" property="age" />
+		<result column="sex" property="sex" />
+		<result column="status" property="status" />
+	</resultMap>
+
+	<select id="loginByUserNameAndPwd" resultMap="queryMap">
+		select * from user
+		where username = #{username} and password = #{password}
+	</select>
+
+	<select id="queryUsers" resultMap="queryMap">
+		select * from user where
+		where
+		status=1
+	</select>
+
+	<select id="queryTotalNum" resultType="java.lang.Integer">
+		select count(id) from user
+		where status=1
+	</select>
+
+	<select id="queryUsersPage" resultMap="queryMap">
+		select * from user where
+		status = 1 limit
+		#{page},#{page_count}
+	</select>
+
+	<select id="getUserByUsername" resultMap="queryMap">
+		select * from user
+		where username = #{username}
+	</select>
+
+	<insert id="addUser">
+		insert into user(username,password,age,sex)
+		values(#{username},#{password},#{age},#{sex})
+	</insert>
+
+	<update id="updateUser">
+		update user set
+		username=#{username},password=#{password},age=#{age},sex=#{sex},status=1
+		where
+		id=#{id}
+	</update>
+	<select id="getUsersById" resultMap="queryMap">
+		select * from user
+		where id =
+		#{id}
+	</select>
+
+	<select id="getUserByNameAndId" resultMap="queryMap">
+		select * from user
+		where id != #{id} and username = #{username}
+	</select>
+
+	<update id="deleteUser">
+		update user set status = 0 where id = #{id}
+	</update>
+
+
+</mapper>
