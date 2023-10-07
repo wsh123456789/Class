@@ -3,7 +3,7 @@ package homework;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Practice01 {
+public class Practice01{
     public static void main(String[] args) {
 //        1、声明一个int 类型的变量，跟byte 类型的变量做加法运算，要求结果为一个byte类型
 //        int a = 10;

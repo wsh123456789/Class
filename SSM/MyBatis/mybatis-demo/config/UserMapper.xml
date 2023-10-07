@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace即使不用到这个属性也不能为空 -->
+<mapper namespace="com.wsh.mapper.UserMapper">
+	
+	<!-- 抽离属性，调用id使用 -->
+    <sql id="querySql">
+    <!-- 数据映射到实体类，需要将sql内数据名as改为跟实体类相同的名字 -->
+     id,username,age,sex,version as trueName
+    </sql>
+    
+    <resultMap type="com.wsh.bean.User" id="queryMap">
+    <result column="id" property="id"/>	
+    <result column="username" property="username"/>	
+    <result column="age" property="age"/>	
+    <result column="sex" property="sex"/>	
+    <result column="version" property="trueName"/>	
+    
+    </resultMap>
+	<select id="selectUserById" parameterType="java.lang.Integer"
+		resultType="com.wsh.bean.User">
+		select * from user where id = #{id}
+	</select>
+
+	<select id="selectUserById1" resultType="com.wsh.bean.User">
+		select * from user where
+		id = #{name}
+	</select>
+
+	<select id="selectUserById2" resultType="com.wsh.bean.User">
+		select * from user
+	</select>
+
+	<select id="getUserAll" resultType="com.wsh.bean.User">
+		select * from user
+	</select>
+
+	<select id="getUserByUsernameAndPassword"
+		resultType="com.wsh.bean.User">
+		select * from user where username = #{username} and
+		password = #{password}
+	</select>
+
+	<select id="getUserByUser" resultType="com.wsh.bean.User">
+		select * from user where
+		username = #{username} and password = #{password}
+	</select>
+
+	<select id="getUserByList" resultType="com.wsh.bean.User">
+		select * from user where
+		username = #{username} and password = #{password}
+	</select>
+
+	<insert id="addUser">
+		insert into user(username,password,age,sex)
+		values(#{username},#{password},#{age},#{sex})
+	</insert>
+
+	<update id="updateUser">
+		update user set
+		username=#{username},password=#{password},age=#{age},sex=#{sex} where
+		id=#{id}
+	</update>
+
+	<delete id="deleteUser">
+		delete from user where id=#{id}
+	</delete>
+
+	<select id="getUserByUsernameAndAge"
+		resultMap="queryMap">
+		select * from user where username = #{username} and age in
+		<foreach collection="ages" item="age" open="(" close=")" separator=",">
+			#{age}
+		</foreach>
+	</select>
+</mapper>

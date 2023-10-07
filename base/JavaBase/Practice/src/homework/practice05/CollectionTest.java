@@ -2,7 +2,6 @@ package homework.practice05;
 
 import java.util.*;
 
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 
 public class CollectionTest {
     public static void main(String[] args) {

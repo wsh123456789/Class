@@ -15,5 +15,9 @@ public class ExtendsTest {
         System.out.println("Person" + p1.getAge());
         System.out.println("Student" + stu1.getAge());
         stu1.sleep();
+
+        Person a = new Student();
+        a.eat();
+        a.sleep();
     }
 }

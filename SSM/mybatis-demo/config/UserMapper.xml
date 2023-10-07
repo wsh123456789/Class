@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <!-- namespace即使不用到这个属性也不能为空 -->
+<mapper namespace="test">
+	<select id="selectUserById" parameterType="java.lang.Integer" resultType="com.wsh.bean.User">
+		select * from user where id = #{id}
+	</select>
+</mapper>

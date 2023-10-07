@@ -1,0 +1,5 @@
+Student{id=5, name='5', chinese=5.0, math=5.0, english=5.0, score=5.0}
+Student{id=4, name='4', chinese=4.0, math=4.0, english=4.0, score=4.0}
+Student{id=3, name='3', chinese=3.0, math=3.0, english=3.0, score=3.0}
+Student{id=2, name='2', chinese=2.0, math=2.0, english=2.0, score=2.0}
+Student{id=1, name='1', chinese=1.0, math=1.0, english=1.0, score=1.0}

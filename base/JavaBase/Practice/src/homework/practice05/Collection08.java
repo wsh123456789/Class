@@ -32,7 +32,7 @@ public class Collection08 {
         bw.close();
 
 //        File file = new File("src/homework/practice05/files/a.txt");
-//        FileInputStream fis = new FileInputStream("src/homework/practice05/files/a.txt");
+//        FilePractice fis = new FilePractice("src/homework/practice05/files/a.txt");
         FileReader fr = new FileReader("src/homework/practice05/files/a.txt");
         BufferedReader br = new BufferedReader(fr);
         String str = null;

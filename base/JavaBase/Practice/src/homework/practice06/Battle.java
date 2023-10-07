@@ -1,6 +1,5 @@
 package homework.practice06;
 
-import javax.xml.bind.SchemaOutputResolver;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
