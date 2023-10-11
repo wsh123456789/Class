@@ -53,6 +53,7 @@
 		where
 		id=#{id}
 	</update>
+	
 	<select id="getUsersById" resultMap="queryMap">
 		select * from user
 		where id =

@@ -5,21 +5,53 @@
 
 <!-- namespace即使不用到这个属性也不能为空 -->
 <mapper namespace="com.wsh.mapper.UserMapper">
-	
+
 	<!-- 抽离属性，调用id使用 -->
-    <sql id="querySql">
-    <!-- 数据映射到实体类，需要将sql内数据名as改为跟实体类相同的名字 -->
-     id,username,age,sex,version as trueName
-    </sql>
-    
-    <resultMap type="com.wsh.bean.User" id="queryMap">
-    <result column="id" property="id"/>	
-    <result column="username" property="username"/>	
-    <result column="age" property="age"/>	
-    <result column="sex" property="sex"/>	
-    <result column="version" property="trueName"/>	
-    
-    </resultMap>
+	<sql id="querySql">
+		<!-- 数据映射到实体类，需要将sql内数据名as改为跟实体类相同的名字 -->
+		id,username,age,sex,version as trueName
+	</sql>
+
+	<resultMap type="com.wsh.bean.User" id="queryMap">
+		<result column="id" property="id" />
+		<result column="username" property="username" />
+		<result column="age" property="age" />
+		<result column="sex" property="sex" />
+		<result column="version" property="trueName" />
+	</resultMap>
+
+	<resultMap type="com.wsh.bean.Student" id="StudentResult">
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="age" property="age" />
+		<result column="address" property="address" />
+	</resultMap>
+
+	<resultMap type="com.wsh.bean.Student" id="StudentResult2">
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="age" property="age" />
+		<result column="address" property="address" />
+		<collection property="bookList" ofType="com.wsh.bean.Book">
+			<result column="book_id" property="id" />
+			<result column="book_name" property="bookName" />
+			<result column="price" property="price" />
+			<result column="student_id" property="studentId" />
+		</collection>
+	</resultMap>
+
+	<resultMap type="com.wsh.bean.Book" id="BookResult">
+		<result column="id" property="id" />
+		<result column="book_name" property="bookName" />
+		<result column="price" property="price" />
+		<result column="student_id" property="studentId" />
+	</resultMap>
+
+	<resultMap type="com.wsh.bean.Resgion" id="ResgionResult">
+		<result column="province" property="province" />
+		<result column="city" property="city" />
+		<result column="county" property="county" />
+	</resultMap>
 	<select id="selectUserById" parameterType="java.lang.Integer"
 		resultType="com.wsh.bean.User">
 		select * from user where id = #{id}
@@ -69,11 +101,171 @@
 		delete from user where id=#{id}
 	</delete>
 
-	<select id="getUserByUsernameAndAge"
-		resultMap="queryMap">
+	<select id="getUserByUsernameAndAge" resultMap="queryMap">
 		select * from user where username = #{username} and age in
-		<foreach collection="ages" item="age" open="(" close=")" separator=",">
+		<foreach collection="ages" item="age" open="(" close=")"
+			separator=",">
 			#{age}
 		</foreach>
 	</select>
+
+	<select id="getUserByUsernameAndPassword1"
+		resultType="com.wsh.bean.User">
+		select * from user
+		<!-- 不用where标签的写法 在where后写1=1，不影响结果 -->
+		<!-- select * from user where 1=1 <if test="username != null and username 
+			!= ''"> and username = #{username} </if> <if test="password != null and password 
+			!= ''"> and password = #{password} </if> -->
+		<!-- 在where标签里成立的第一个sql语句会自动去除and -->
+		<where>
+			<!-- 在查询时会存在用户只写了一个数据查询的情况，需要用if标签进行判断是否查询 -->
+			<if test="username != null and username != ''">
+				and username = #{username}
+			</if>
+			<if test="password != null and password != ''">
+				and password = #{password}
+			</if>
+		</where>
+	</select>
+
+	<update id="updateUserByUser1">
+		update user
+		<set>
+			<if test="username != null and username != ''">
+				username = #{username},
+			</if>
+			<if test="password != null and password != ''">
+				password = #{password},
+			</if>
+			<if test="sex != null and sex != ''">
+				sex = #{sex},
+			</if>
+			<if test="age != null">
+				age = #{age},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+
+	<!-- prefix: 以***开头 -->
+	<!-- prefixOverrides: 开头之后将***忽略 -->
+	<!-- suffix: 以***结尾 -->
+	<!-- suffixOverrides: 结尾之前将***忽略 -->
+	<update id="updateUserByUser">
+		update user
+		<trim prefix="set" prefixOverrides="," suffix="where"
+			suffixOverrides=",">
+			<if test="username != null and username != ''">
+				username = #{username},
+			</if>
+			<if test="password != null and password != ''">
+				password = #{password},
+			</if>
+			<if test="sex != null and sex != ''">
+				sex = #{sex},
+			</if>
+			<if test="age != null">
+				age = #{age},
+			</if>
+		</trim>
+		id=#{id}
+	</update>
+
+	<!-- 批量操作 -->
+	<insert id="InstertUserList">
+		insert into user(username,password,age,sex)
+		values
+		<foreach collection="users" item="user" separator=",">
+			(#{user.username},#{user.password},#{user.age},#{user.sex})
+		</foreach>
+	</insert>
+
+	<!-- 批量修改 -->
+	<update id="updateUserList">
+		<foreach collection="userList" item="user" separator=";">
+			UPDATE
+			user SET username=#{user.username},password = #{user.password},age =
+			#{user.age}, sex = #{user.sex}
+			WHERE id = #{user.id}
+		</foreach>
+	</update>
+
+	<!-- 批量修改 -->
+	<update id="updateUserByIds">
+		update user set age = #{age} where id in
+		<foreach collection="ids" item="id" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</update>
+
+	<!-- 批量修改 -->
+	<update id="updateUserByIaa">
+		update user set age = #{age} where id in
+		<foreach collection="ids" item="id" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</update>
+
+	<!-- useGeneratedKeys：是否返回主键信息 keyProperty： 映射到实体类的属性名 keyColumn： SQL中主键属性名 -->
+	<insert id="insertStudent" useGeneratedKeys="true"
+		keyProperty="id" keyColumn="id">
+		insert into student(name,age,address)
+		values(#{name},#{age},#{address})
+	</insert>
+
+	<select id="getStudentByName" resultType="java.lang.Integer">
+		select id from student
+		where name = #{name}
+	</select>
+
+	<insert id="insertBookList">
+		insert into book(book_name,price,student_id) values
+		<foreach collection="bookList" item="book" open="("
+			separator="),(" close=")">
+			#{book.bookName},#{book.price},#{book.studentId}
+		</foreach>
+	</insert>
+
+	<select id="getBooksById" resultMap="BookResult">
+		select * from book
+		where
+		student_id = #{id}
+	</select>
+
+	<select id="getResgion" resultMap="ResgionResult">
+		SELECT a.name province,b.name
+		city,c.name county from region a
+		JOIN region b on a.id=b.parent_id
+		LEFT
+		JOIN region c ON b.id=c.parent_id
+		WHERE a.parent_id is null
+		ORDER BY
+		a.name
+	</select>
+
+	<select id="getStudent" resultMap="StudentResult">
+		select * from student
+	</select>
+
+	<select id="getBookByStuIds" resultMap="BookResult">
+		select * from book where student_id in
+		<foreach collection="studentIds" item="studentId" open="("
+			separator="," close=")">
+			#{studentId}
+		</foreach>
+	</select>
+
+	<select id="getStudents" resultMap="StudentResult2">
+		select stu.id,stu.name,stu.age,stu.address,bo.id as book_id,bo.book_name,bo.price,bo.student_id
+		from student as stu 
+		left join book bo 
+		on stu.id = bo.student_id
+	</select>
+
+	<select id="getCityAll" resultType="com.wsh.bean.City">
+		select id,name,parent_id as parentId from region
+	</select>
+
 </mapper>
