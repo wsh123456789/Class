@@ -1,0 +1,45 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.wsh</groupId>
+  <artifactId>maven_web</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+  
+   <build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<!-- 端口号 -->
+					<port>80</port>
+					<!--写成什么发布后通过什么名称来访问-->
+					<!-- 如果写成/tomcat插件把项目命名成ROOT,以后访问时不用写项目 -->
+					<path>/</path>
+				</configuration>
+			</plugin>
+		</plugins>
+		<!-- 打包名称 -->
+		<finalName>SSMDemo</finalName>
+		<!-- 把项目中的配置文件打成war包 -->
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+				<!-- <filtering>true</filtering> -->
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+				<!-- <filtering>true</filtering> -->
+			</resource>
+		</resources>
+	</build>
+</project>

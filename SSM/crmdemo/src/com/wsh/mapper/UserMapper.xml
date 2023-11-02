@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 管理SQL用的 -->
+<!-- namespace即使不用到这个属性也不能为空 -->
+<mapper namespace="com.wsh.mapper.UserMapper">
+
+	<!-- 用户基本信息 -->
+	<resultMap type="com.wsh.bean.UserInfo" id="userResult1">
+		<result column="user_id" property="userId" />
+		<result column="user_name" property="userName" />
+		<result column="user_pw" property="userPw" />
+	</resultMap>
+
+	<!-- 客户展示信息 -->
+	<resultMap type="com.wsh.bean.CustomerShow" id="custResult1">
+		<result column="customer_id" property="customerId" />
+		<result column="customer_name" property="customerName" />
+		<result column="condition_name" property="conditionName" />
+		<result column="source_name" property="sourceName" />
+		<result column="user_name" property="userName" />
+		<result column="type_name" property="typeName" />
+		<result column="customer_sex" property="customerSex" />
+		<result column="customer_mobile" property="customerMobile" />
+		<result column="customer_qq" property="customerQq" />
+		<result column="customer_email" property="customerEmail" />
+		<result column="customer_job" property="customerJob" />
+		<result column="customer_company" property="customerCompany" />
+		<result column="customer_remark" property="customerRemark" />
+	</resultMap>
+
+	<!-- 客户修改界面列表 -->
+	<resultMap type="com.wsh.bean.CustomerInfo" id="custResult2">
+		<result column="customer_id" property="customerId" />
+		<result column="condition_id" property="conditionId" />
+		<result column="source_id" property="sourceId" />
+		<result column="user_id" property="userId" />
+		<result column="type_id" property="typeId" />
+		<result column="customer_name" property="customerName" />
+		<result column="condition_name" property="conditionName" />
+		<result column="source_name" property="sourceName" />
+		<result column="customer_address" property="customerAddress" />
+		<result column="user_name" property="userName" />
+		<result column="type_name" property="typeName" />
+		<result column="customer_sex" property="customerSex" />
+		<result column="birth_day" property="birthDay" />
+		<result column="customer_mobile" property="customerMobile" />
+		<result column="customer_tel" property="customerTel" />
+		<result column="customer_blog" property="customerBlog" />
+		<result column="customer_msn" property="customerMsn" />
+		<result column="customer_qq" property="customerQq" />
+		<result column="customer_email" property="customerEmail" />
+		<result column="customer_job" property="customerJob" />
+		<result column="change_man" property="changeMan" />
+		<result column="customer_company" property="customerCompany" />
+		<result column="customer_remark" property="customerRemark" />
+		<result column="customer_addman" property="customerAddMan" />
+		<result column="change_man" property="changeMan" />
+		<result column="customer_addtime" property="customerAddTime" />
+		<result column="customer_changetime"
+			property="customerChangeTime" />
+	</resultMap>
+	<!-- 登录 -->
+	<select id="loginByUsernameAndPw" resultMap="userResult1">
+		select * from
+		user_info where user_name=#{userName} and user_pw=#{userPw} and
+		is_used = 1
+	</select>
+
+	<!-- 注册用户 -->
+	<insert id="registerUser">
+		insert into user_info(user_name,user_pw) values
+		(#{userName},#{userPw})
+	</insert>
+
+	<!-- 根据用户名查修用户 -->
+	<select id="getUserByUserName" resultMap="userResult1">
+		select * from user_info
+		where user_name=#{userName} and is_used = 1
+	</select>
+
+	<!-- 查询全部客户的展示信息 -->
+	<select id="getCustomer" resultMap="custResult1">
+		select
+		ci.customer_id,
+		ci.customer_name,
+		cc.condition_name,
+		cs.source_name,
+		ui.user_name,
+		ct.type_name,
+		ci.customer_sex,
+		ci.customer_mobile,
+		ci.customer_qq,
+		ci.customer_email,
+		ci.customer_job,
+		ci.customer_company,
+		ci.customer_remark
+		from customer_info as ci
+		LEFT
+		JOIN customer_condition as cc
+		on ci.condition_id = cc.condition_id
+		LEFT
+		JOIN customer_source as cs
+		on ci.source_id = cs.source_id
+		LEFT JOIN
+		customer_type as ct
+		on ci.type_id = ct.type_id
+		LEFT JOIN
+		user_info as ui
+		on ci.user_id = ui.user_id
+		<where>
+			and ci.is_used = 1
+			<if test="queryContent != null and queryContent != ''">
+				<if test="queryType==1">
+					and ci.customer_name like concat("%",#{queryContent},"%")
+					<!-- and ci.customer_id = 1 -->
+				</if>
+				<if test="queryType==2">
+					and cc.condition_name like
+					concat("%",#{queryContent},"%")
+				</if>
+				<if test="queryType==3">
+					and cs.source_name like concat("%",#{queryContent},"%")
+				</if>
+				<if test="queryType==4">
+					and ui.user_name like concat("%",#{queryContent},"%")
+				</if>
+				<if test="queryType==5">
+					and ct.type_name like concat("%",#{queryContent},"%")
+				</if>
+				<if test="queryType==6">
+					and ci.customer_company like
+					concat("%",#{queryContent},"%")
+				</if>
+			</if>
+		</where>
+		GROUP BY ci.customer_id
+		limit
+		#{current_page},#{page_count}
+	</select>
+
+	<!-- 获取数据总数 -->
+	<select id="getTotalSize" resultType="java.lang.Integer">
+		select count(ci.customer_id)
+		as totalSize
+		from customer_info as ci
+		LEFT
+		JOIN customer_condition as cc
+		on
+		ci.condition_id = cc.condition_id
+		LEFT
+		JOIN customer_source as cs
+		on
+		ci.source_id = cs.source_id
+		LEFT JOIN
+		customer_type as ct
+		on ci.type_id =
+		ct.type_id
+		LEFT JOIN
+		user_info as ui
+		on ci.user_id = ui.user_id
+		<where>
+			and ci.is_used = 1
+			<if test="queryContent != null and queryContent != ''">
+				<if test="queryType==1">
+					and ci.customer_name like
+					concat("%",#{queryContent},"%")
+				</if>
+				<if test="queryType==2">
+					and cc.condition_name like
+					concat("%",#{queryContent},"%")
+				</if>
+				<if test="queryType==3">
+					and cs.source_name like concat("%",#{queryContent},"%")
+				</if>
+				<if test="queryType==4">
+					and ui.user_name like concat("%",#{queryContent},"%")
+				</if>
+				<if test="queryType==5">
+					and ct.type_name like concat("%",#{queryContent},"%")
+				</if>
+				<if test="queryType==6">
+					and ci.customer_company like
+					concat("%",#{queryContent},"%")
+				</if>
+			</if>
+		</where>
+	</select>
+
+	<insert id="addCustomer">
+		INSERT INTO
+		customer_info(
+		condition_id,
+		source_id,
+		user_id,
+		type_id,
+		customer_name,
+		customer_sex,
+		customer_mobile,
+		customer_qq,
+		customer_address,
+		customer_email,
+		customer_remark,
+		customer_job,
+		customer_blog,
+		customer_tel,
+		customer_msn,
+		birth_day,
+		customer_addman,
+		change_man,
+		customer_company,
+		customer_addtime)
+		VALUES (
+		#{conditionId},
+		#{sourceId},
+		#{userId},
+		#{typeId},
+		#{customerName},
+		#{customerSex},
+		#{customerMobile},
+		#{customerQq},
+		#{customerAddress},
+		#{customerEmail},
+		#{customerRemark},
+		#{customerJob},
+		#{customerBlog},
+		#{customerTel},
+		#{customerMsn},
+		#{birthDay},
+		#{customerAddMan},
+		#{changeMan},
+		#{customerCompany},
+		#{customerAddTime}
+		)
+	</insert>
+
+	<select id="getCustomerById" resultMap="custResult2">
+		select * from
+		customer_info
+		where customer_id = #{customerId} and is_used = 1
+	</select>
+
+	<update id="updateCustomer">
+		update customer_info
+		set
+		condition_id=#{conditionId},
+		source_id=#{sourceId},
+		user_id=#{userId},
+		type_id=#{typeId},
+		customer_name=#{customerName},
+		customer_sex=#{customerSex},
+		customer_mobile=#{customerMobile},
+		customer_qq=#{customerQq},
+		customer_address=#{customerAddress},
+		customer_email=#{customerEmail},
+		customer_remark=#{customerRemark},
+		customer_job=#{customerJob},
+		customer_blog=#{customerBlog},
+		customer_tel=#{customerTel},
+		customer_msn=#{customerMsn},
+		birth_day=#{birthDay},
+		customer_addman=#{customerAddMan},
+		change_man=#{changeMan},
+		customer_company=#{customerCompany},
+		customer_changetime=#{customerChangeTime}
+		where customer_id =
+		#{customerId}
+	</update>
+
+	<update id="deleteCustomer">
+		update customer_info
+		set is_used = 0
+		where customer_id
+		= #{customerId}
+	</update>
+
+	<select id="getUserInfo" resultType="com.wsh.bean.UserInfo">
+		select user_id as userId
+		,user_name as userName from user_info
+		where is_used = 1
+	</select>
+
+	<!-- 客户类型 -->
+	<select id="getCustomerType"
+		resultType="com.wsh.bean.CustomerType">
+		select type_id as typeId ,type_name as typeName from
+		customer_type
+		where is_used = 1
+	</select>
+
+	<insert id="addCustomerType">
+		INSERT INTO
+		customer_type(
+		type_name)
+		VALUES (
+		#{typeName}
+		)
+	</insert>
+
+	<update id="deleteCustomerTypeById">
+		update customer_type
+		set is_used = 0
+		where type_id =
+		#{typeId}
+	</update>
+
+
+	<!-- 客户状态 -->
+
+	<select id="getCustomerCondition"
+		resultType="com.wsh.bean.CustomerCondition">
+		select condition_id as conditionId,condition_name as
+		conditionName,condition_explain as conditionExplain from
+		customer_condition
+		where is_used = 1
+	</select>
+
+	<insert id="addCustomerCondition">
+		INSERT INTO
+		customer_condition(
+		condition_name,
+		condition_explain
+		)
+		VALUES (
+		#{conditionName},
+		#{conditionExplain}
+		)
+	</insert>
+
+
+
+	<update id="deleteCustomerConditionById">
+		update customer_condition
+		set is_used = 0
+		where
+		condition_id = #{conditionId}
+	</update>
+
+
+	<!-- 客户来源 -->
+
+	<select id="getCustomerSource"
+		resultType="com.wsh.bean.CustomerSource">
+		select source_id as sourceId ,source_name as sourceName
+		from customer_source
+		where is_used = 1
+	</select>
+
+	<insert id="addCustomerSource">
+		INSERT INTO
+		customer_source(
+		source_name
+		)
+		VALUES (
+		#{sourceName}
+		)
+	</insert>
+
+	<update id="deleteCustomerSourceById">
+		update customer_source
+		set is_used = 0
+		where source_id
+		= #{sourceId}
+	</update>
+
+
+	<select id="getSourceBingZhuang"
+		resultType="com.wsh.bean.CustomerSourceBing">
+		select
+		cs.source_name as name, count(ci.customer_id) as y
+		from customer_source as cs
+		join
+		customer_info as ci
+		on cs.source_id =
+		ci.source_id
+		GROUP BY cs.source_name
+	</select>
+	<select id="getPermission"
+		resultType="com.wsh.bean.PermissionVo">
+		SELECT DISTINCT p.id,p.name,p.url,p.parent_id
+		parentId,p.parent_top
+		parentTop FROM permission p
+		LEFT JOIN
+		role_permission rp on p.id = rp.permissionId
+		LEFT JOIN user_role ur ON
+		rp.roleId = ur.role_id
+		LEFT JOIN user_info ui ON ur.role_id =
+		ui.role_id
+		WHERE ui.user_name=#{userName}
+	</select>
+
+	<select id="queryRoleAll" resultType="com.wsh.bean.Role">
+		SELECT role_id roleId,
+		role_name roleName
+		FROM role
+	</select>
+
+
+	<select id="getUserAll" resultType="com.wsh.bean.UserInfo">
+		SELECT user_id userId,
+		user_name userName
+		FROM user_info
+	</select>
+
+	<delete id="deleteRole">
+		delete from user_role where user_id
+		=#{userId}
+	</delete>
+
+	<insert id="addRole">
+		INSERT INTO
+		user_role(
+		user_id,
+		role_id)
+		VALUES
+		<foreach collection="roleId" item="rid" open="("
+			separator="),(" close=")">
+			#{userId},
+			#{rid}
+		</foreach>
+	</insert>
+	<resultMap id="BaseResultMap"
+		type="com.wsh.bean.PermissionVo">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="url" jdbcType="VARCHAR" property="url" />
+		<result column="parent_top" jdbcType="INTEGER"
+			property="parentTop" />
+		<result column="parent_id" jdbcType="INTEGER"
+			property="parentId" />
+	</resultMap>
+
+	<select id="queryPermission" resultMap="BaseResultMap">
+		select * from permission
+	</select>
+
+	<delete id="deletePermission">
+		delete from role_permission where roleId=#{roleId}
+	</delete>
+	
+	<insert id="addPermission">
+		INSERT INTO
+		role_permission(
+		roleId,
+		permissionId)
+		VALUES
+		<foreach collection="permissionId" item="pid" open="("
+			separator="),(" close=")">
+			#{roleId},
+			#{pid}
+		</foreach>
+	</insert>
+</mapper>

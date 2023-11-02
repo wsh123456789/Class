@@ -1,0 +1,21 @@
+1.步骤一：将文件夹复制到项目的WebRoot目录下
+2.步骤二：在需要使用该文本编辑器的jsp中引入核心js文件
+	<script type="text/javascript" src="kindeditor/kindeditor.js"></script>
+3.步骤三：在要用到该文本编辑器的<textarea>标签元素上加上id属性
+	<textarea name="remark" id="remark" cols="100" rows="8"></textarea>
+4.步骤四：在jsp中写如下的js代码
+	<script type="text/javascript">
+			KE.show({
+			id:'remark',
+			items:['source', '|', 'fullscreen', 'undo', 'redo', 'print', 'cut', 'copy', 'paste',
+					'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+					'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+					'superscript', '|', 'selectall', '-',
+					'title', 'fontname', 'fontsize', '|', 'textcolor', 'bgcolor', 'bold',
+					'italic', 'underline', 'strikethrough', 'removeformat', '|', 'image',
+					'flash', 'media', 'advtable', 'hr', 'emoticons', 'link', 'unlink', '|', 'about'],
+			width:'80%'
+			});
+	</script>
+
+注：在配置文件中<!-- 如果有其他资源需要放行则将其他资源放到最上面 -->

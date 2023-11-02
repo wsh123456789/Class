@@ -1,0 +1,14 @@
+spring Framework
+
+IOC(控制反转：将对象的创建交给了spring容器)
+依赖注入:整个IOC的核心
+三种方式：
+1、构造函数注入
+2、set注入
+3、注解（重点）
+
+好多注解：
+@Controller
+@Service
+
+AOP(面向切面编程)

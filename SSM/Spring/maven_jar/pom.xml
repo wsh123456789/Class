@@ -1,0 +1,21 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.wsh</groupId>
+	<artifactId>maven_jar</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<parent>
+		<groupId>com.wsh</groupId>
+		<artifactId>maven-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<dependencies>
+	<!-- 父类声明之后，子类重写不用写版本号 -->
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+		<dependency> 
+			<groupId>org.springframework</groupId> 
+			<artifactId>spring-context</artifactId> 
+		</dependency>
+	</dependencies>
+</project>

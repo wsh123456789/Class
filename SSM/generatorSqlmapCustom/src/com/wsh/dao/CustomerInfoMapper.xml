@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wsh.dao.CustomerInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.wsh.bean.CustomerInfo" >
+    <id column="customer_id" property="customerId" jdbcType="INTEGER" />
+    <result column="condition_id" property="conditionId" jdbcType="INTEGER" />
+    <result column="source_id" property="sourceId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+    <result column="customer_sex" property="customerSex" jdbcType="VARCHAR" />
+    <result column="customer_mobile" property="customerMobile" jdbcType="VARCHAR" />
+    <result column="customer_qq" property="customerQq" jdbcType="VARCHAR" />
+    <result column="customer_address" property="customerAddress" jdbcType="VARCHAR" />
+    <result column="customer_email" property="customerEmail" jdbcType="VARCHAR" />
+    <result column="customer_remark" property="customerRemark" jdbcType="VARCHAR" />
+    <result column="customer_job" property="customerJob" jdbcType="VARCHAR" />
+    <result column="customer_blog" property="customerBlog" jdbcType="VARCHAR" />
+    <result column="customer_tel" property="customerTel" jdbcType="VARCHAR" />
+    <result column="customer_msn" property="customerMsn" jdbcType="VARCHAR" />
+    <result column="birth_day" property="birthDay" jdbcType="TIMESTAMP" />
+    <result column="customer_addtime" property="customerAddtime" jdbcType="TIMESTAMP" />
+    <result column="customer_addman" property="customerAddman" jdbcType="VARCHAR" />
+    <result column="customer_changtime" property="customerChangtime" jdbcType="TIMESTAMP" />
+    <result column="change_man" property="changeMan" jdbcType="VARCHAR" />
+    <result column="customer_company" property="customerCompany" jdbcType="VARCHAR" />
+    <result column="is_used" property="isUsed" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    customer_id, condition_id, source_id, user_id, type_id, customer_name, customer_sex, 
+    customer_mobile, customer_qq, customer_address, customer_email, customer_remark, 
+    customer_job, customer_blog, customer_tel, customer_msn, birth_day, customer_addtime, 
+    customer_addman, customer_changtime, change_man, customer_company, is_used
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wsh.bean.CustomerInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from customer_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from customer_info
+    where customer_id = #{customerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from customer_info
+    where customer_id = #{customerId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wsh.bean.CustomerInfoExample" >
+    delete from customer_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wsh.bean.CustomerInfo" >
+    insert into customer_info (customer_id, condition_id, source_id, 
+      user_id, type_id, customer_name, 
+      customer_sex, customer_mobile, customer_qq, 
+      customer_address, customer_email, customer_remark, 
+      customer_job, customer_blog, customer_tel, 
+      customer_msn, birth_day, customer_addtime, 
+      customer_addman, customer_changtime, change_man, 
+      customer_company, is_used)
+    values (#{customerId,jdbcType=INTEGER}, #{conditionId,jdbcType=INTEGER}, #{sourceId,jdbcType=INTEGER}, 
+      #{userId,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, #{customerName,jdbcType=VARCHAR}, 
+      #{customerSex,jdbcType=VARCHAR}, #{customerMobile,jdbcType=VARCHAR}, #{customerQq,jdbcType=VARCHAR}, 
+      #{customerAddress,jdbcType=VARCHAR}, #{customerEmail,jdbcType=VARCHAR}, #{customerRemark,jdbcType=VARCHAR}, 
+      #{customerJob,jdbcType=VARCHAR}, #{customerBlog,jdbcType=VARCHAR}, #{customerTel,jdbcType=VARCHAR}, 
+      #{customerMsn,jdbcType=VARCHAR}, #{birthDay,jdbcType=TIMESTAMP}, #{customerAddtime,jdbcType=TIMESTAMP}, 
+      #{customerAddman,jdbcType=VARCHAR}, #{customerChangtime,jdbcType=TIMESTAMP}, #{changeMan,jdbcType=VARCHAR}, 
+      #{customerCompany,jdbcType=VARCHAR}, #{isUsed,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wsh.bean.CustomerInfo" >
+    insert into customer_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="conditionId != null" >
+        condition_id,
+      </if>
+      <if test="sourceId != null" >
+        source_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="customerName != null" >
+        customer_name,
+      </if>
+      <if test="customerSex != null" >
+        customer_sex,
+      </if>
+      <if test="customerMobile != null" >
+        customer_mobile,
+      </if>
+      <if test="customerQq != null" >
+        customer_qq,
+      </if>
+      <if test="customerAddress != null" >
+        customer_address,
+      </if>
+      <if test="customerEmail != null" >
+        customer_email,
+      </if>
+      <if test="customerRemark != null" >
+        customer_remark,
+      </if>
+      <if test="customerJob != null" >
+        customer_job,
+      </if>
+      <if test="customerBlog != null" >
+        customer_blog,
+      </if>
+      <if test="customerTel != null" >
+        customer_tel,
+      </if>
+      <if test="customerMsn != null" >
+        customer_msn,
+      </if>
+      <if test="birthDay != null" >
+        birth_day,
+      </if>
+      <if test="customerAddtime != null" >
+        customer_addtime,
+      </if>
+      <if test="customerAddman != null" >
+        customer_addman,
+      </if>
+      <if test="customerChangtime != null" >
+        customer_changtime,
+      </if>
+      <if test="changeMan != null" >
+        change_man,
+      </if>
+      <if test="customerCompany != null" >
+        customer_company,
+      </if>
+      <if test="isUsed != null" >
+        is_used,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="customerId != null" >
+        #{customerId,jdbcType=INTEGER},
+      </if>
+      <if test="conditionId != null" >
+        #{conditionId,jdbcType=INTEGER},
+      </if>
+      <if test="sourceId != null" >
+        #{sourceId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerSex != null" >
+        #{customerSex,jdbcType=VARCHAR},
+      </if>
+      <if test="customerMobile != null" >
+        #{customerMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="customerQq != null" >
+        #{customerQq,jdbcType=VARCHAR},
+      </if>
+      <if test="customerAddress != null" >
+        #{customerAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="customerEmail != null" >
+        #{customerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="customerRemark != null" >
+        #{customerRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="customerJob != null" >
+        #{customerJob,jdbcType=VARCHAR},
+      </if>
+      <if test="customerBlog != null" >
+        #{customerBlog,jdbcType=VARCHAR},
+      </if>
+      <if test="customerTel != null" >
+        #{customerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="customerMsn != null" >
+        #{customerMsn,jdbcType=VARCHAR},
+      </if>
+      <if test="birthDay != null" >
+        #{birthDay,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerAddtime != null" >
+        #{customerAddtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerAddman != null" >
+        #{customerAddman,jdbcType=VARCHAR},
+      </if>
+      <if test="customerChangtime != null" >
+        #{customerChangtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeMan != null" >
+        #{changeMan,jdbcType=VARCHAR},
+      </if>
+      <if test="customerCompany != null" >
+        #{customerCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsed != null" >
+        #{isUsed,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wsh.bean.CustomerInfoExample" resultType="java.lang.Integer" >
+    select count(*) from customer_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update customer_info
+    <set >
+      <if test="record.customerId != null" >
+        customer_id = #{record.customerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.conditionId != null" >
+        condition_id = #{record.conditionId,jdbcType=INTEGER},
+      </if>
+      <if test="record.sourceId != null" >
+        source_id = #{record.sourceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeId != null" >
+        type_id = #{record.typeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.customerName != null" >
+        customer_name = #{record.customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerSex != null" >
+        customer_sex = #{record.customerSex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerMobile != null" >
+        customer_mobile = #{record.customerMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerQq != null" >
+        customer_qq = #{record.customerQq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerAddress != null" >
+        customer_address = #{record.customerAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerEmail != null" >
+        customer_email = #{record.customerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerRemark != null" >
+        customer_remark = #{record.customerRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerJob != null" >
+        customer_job = #{record.customerJob,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerBlog != null" >
+        customer_blog = #{record.customerBlog,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerTel != null" >
+        customer_tel = #{record.customerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerMsn != null" >
+        customer_msn = #{record.customerMsn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birthDay != null" >
+        birth_day = #{record.birthDay,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.customerAddtime != null" >
+        customer_addtime = #{record.customerAddtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.customerAddman != null" >
+        customer_addman = #{record.customerAddman,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerChangtime != null" >
+        customer_changtime = #{record.customerChangtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.changeMan != null" >
+        change_man = #{record.changeMan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerCompany != null" >
+        customer_company = #{record.customerCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isUsed != null" >
+        is_used = #{record.isUsed,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update customer_info
+    set customer_id = #{record.customerId,jdbcType=INTEGER},
+      condition_id = #{record.conditionId,jdbcType=INTEGER},
+      source_id = #{record.sourceId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      type_id = #{record.typeId,jdbcType=INTEGER},
+      customer_name = #{record.customerName,jdbcType=VARCHAR},
+      customer_sex = #{record.customerSex,jdbcType=VARCHAR},
+      customer_mobile = #{record.customerMobile,jdbcType=VARCHAR},
+      customer_qq = #{record.customerQq,jdbcType=VARCHAR},
+      customer_address = #{record.customerAddress,jdbcType=VARCHAR},
+      customer_email = #{record.customerEmail,jdbcType=VARCHAR},
+      customer_remark = #{record.customerRemark,jdbcType=VARCHAR},
+      customer_job = #{record.customerJob,jdbcType=VARCHAR},
+      customer_blog = #{record.customerBlog,jdbcType=VARCHAR},
+      customer_tel = #{record.customerTel,jdbcType=VARCHAR},
+      customer_msn = #{record.customerMsn,jdbcType=VARCHAR},
+      birth_day = #{record.birthDay,jdbcType=TIMESTAMP},
+      customer_addtime = #{record.customerAddtime,jdbcType=TIMESTAMP},
+      customer_addman = #{record.customerAddman,jdbcType=VARCHAR},
+      customer_changtime = #{record.customerChangtime,jdbcType=TIMESTAMP},
+      change_man = #{record.changeMan,jdbcType=VARCHAR},
+      customer_company = #{record.customerCompany,jdbcType=VARCHAR},
+      is_used = #{record.isUsed,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wsh.bean.CustomerInfo" >
+    update customer_info
+    <set >
+      <if test="conditionId != null" >
+        condition_id = #{conditionId,jdbcType=INTEGER},
+      </if>
+      <if test="sourceId != null" >
+        source_id = #{sourceId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="customerName != null" >
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerSex != null" >
+        customer_sex = #{customerSex,jdbcType=VARCHAR},
+      </if>
+      <if test="customerMobile != null" >
+        customer_mobile = #{customerMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="customerQq != null" >
+        customer_qq = #{customerQq,jdbcType=VARCHAR},
+      </if>
+      <if test="customerAddress != null" >
+        customer_address = #{customerAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="customerEmail != null" >
+        customer_email = #{customerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="customerRemark != null" >
+        customer_remark = #{customerRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="customerJob != null" >
+        customer_job = #{customerJob,jdbcType=VARCHAR},
+      </if>
+      <if test="customerBlog != null" >
+        customer_blog = #{customerBlog,jdbcType=VARCHAR},
+      </if>
+      <if test="customerTel != null" >
+        customer_tel = #{customerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="customerMsn != null" >
+        customer_msn = #{customerMsn,jdbcType=VARCHAR},
+      </if>
+      <if test="birthDay != null" >
+        birth_day = #{birthDay,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerAddtime != null" >
+        customer_addtime = #{customerAddtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerAddman != null" >
+        customer_addman = #{customerAddman,jdbcType=VARCHAR},
+      </if>
+      <if test="customerChangtime != null" >
+        customer_changtime = #{customerChangtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeMan != null" >
+        change_man = #{changeMan,jdbcType=VARCHAR},
+      </if>
+      <if test="customerCompany != null" >
+        customer_company = #{customerCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsed != null" >
+        is_used = #{isUsed,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where customer_id = #{customerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wsh.bean.CustomerInfo" >
+    update customer_info
+    set condition_id = #{conditionId,jdbcType=INTEGER},
+      source_id = #{sourceId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      type_id = #{typeId,jdbcType=INTEGER},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      customer_sex = #{customerSex,jdbcType=VARCHAR},
+      customer_mobile = #{customerMobile,jdbcType=VARCHAR},
+      customer_qq = #{customerQq,jdbcType=VARCHAR},
+      customer_address = #{customerAddress,jdbcType=VARCHAR},
+      customer_email = #{customerEmail,jdbcType=VARCHAR},
+      customer_remark = #{customerRemark,jdbcType=VARCHAR},
+      customer_job = #{customerJob,jdbcType=VARCHAR},
+      customer_blog = #{customerBlog,jdbcType=VARCHAR},
+      customer_tel = #{customerTel,jdbcType=VARCHAR},
+      customer_msn = #{customerMsn,jdbcType=VARCHAR},
+      birth_day = #{birthDay,jdbcType=TIMESTAMP},
+      customer_addtime = #{customerAddtime,jdbcType=TIMESTAMP},
+      customer_addman = #{customerAddman,jdbcType=VARCHAR},
+      customer_changtime = #{customerChangtime,jdbcType=TIMESTAMP},
+      change_man = #{changeMan,jdbcType=VARCHAR},
+      customer_company = #{customerCompany,jdbcType=VARCHAR},
+      is_used = #{isUsed,jdbcType=VARCHAR}
+    where customer_id = #{customerId,jdbcType=INTEGER}
+  </update>
+</mapper>

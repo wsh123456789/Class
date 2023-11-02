@@ -11,64 +11,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="774e17e8-1911-4e29-b66d-dc8abcd77d69" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/JSP.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/ServletDemo_war_exploded.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/jstl.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_5_1_38.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/standard_1_1_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ServletDemo/ServletDemo.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ServletDemo/src/com/wsh/bean/PageVo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ServletDemo/src/com/wsh/bean/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ServletDemo/src/com/wsh/dao/UserDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ServletDemo/src/com/wsh/services/UserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ServletDemo/src/com/wsh/services/UserServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ServletDemo/src/com/wsh/servlets/AddUsersServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ServletDemo/src/com/wsh/servlets/DeleteUsersServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ServletDemo/src/com/wsh/servlets/LoginServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ServletDemo/src/com/wsh/servlets/QueryUsersPageServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ServletDemo/src/com/wsh/servlets/QueryUsersServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ServletDemo/src/com/wsh/servlets/UpdateUsersServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ServletDemo/src/com/wsh/servlets/getUserById.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ServletDemo/src/com/wsh/utils/DButil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ServletDemo/web/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ServletDemo/web/add.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ServletDemo/web/index.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ServletDemo/web/update.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../SSM/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../base/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../base/.idea/base.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../base/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../base/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../base/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../base/JavaBase/Practice/src/homework/exam/exam02/Practice02.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../base/JavaBase/Practice/src/homework/exam/exam02/Practice03.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../base/JavaBase/Practice/src/homework/exam/exam02/practice01/ScoketRequest02.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../base/JavaBase/Practice/src/homework/exam/exam02/practice01/SocketRequest01.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../base/JavaBase/Practice/src/homework/exam/exam02/practice01/SocketResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../base/JavaBase/Practice/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../base/JavaBase/Practice/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../base/JavaBase/Practice/Practice.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../base/JavaBase/Practice/Practice.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../base/JavaBase/Practice/out/production/Practice/com/demo/_extends/ExtendsTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../base/JavaBase/Practice/out/production/Practice/com/demo/_extends/ExtendsTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../base/JavaBase/Practice/out/production/Practice/com/demo/base/PhoneTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../base/JavaBase/Practice/out/production/Practice/com/demo/base/PhoneTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../base/JavaBase/Practice/out/production/Practice/homework/practice05/CollectionTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../base/JavaBase/Practice/out/production/Practice/homework/practice05/CollectionTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../base/JavaBase/Practice/out/production/Practice/homework/practice05/Person.class" beforeDir="false" afterPath="$PROJECT_DIR$/../base/JavaBase/Practice/out/production/Practice/homework/practice05/Person.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../base/JavaBase/Practice/out/production/Practice/homework/practice06/Battle.class" beforeDir="false" afterPath="$PROJECT_DIR$/../base/JavaBase/Practice/out/production/Practice/homework/practice06/Battle.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../base/JavaBase/Practice/src/com/demo/_extends/ExtendsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../base/JavaBase/Practice/src/com/demo/_extends/ExtendsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../base/JavaBase/Practice/src/com/demo/base/PhoneTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../base/JavaBase/Practice/src/com/demo/base/PhoneTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../base/JavaBase/Practice/src/homework/Practice01.java" beforeDir="false" afterPath="$PROJECT_DIR$/../base/JavaBase/Practice/src/homework/Practice01.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../base/JavaBase/Practice/src/homework/practice05/Collection08.java" beforeDir="false" afterPath="$PROJECT_DIR$/../base/JavaBase/Practice/src/homework/practice05/Collection08.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../base/JavaBase/Practice/src/homework/practice05/CollectionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../base/JavaBase/Practice/src/homework/practice05/CollectionTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../base/JavaBase/Practice/src/homework/practice06/Battle.java" beforeDir="false" afterPath="$PROJECT_DIR$/../base/JavaBase/Practice/src/homework/practice06/Battle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../base/JavaBase/out/production/Practice/com/demo/_enum/Season.class" beforeDir="false" afterPath="$PROJECT_DIR$/../base/JavaBase/out/production/Practice/com/demo/_enum/Season.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../base/JavaBase/out/production/Practice/com/demo/_extends/ExtendsTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../base/JavaBase/out/production/Practice/com/demo/_extends/ExtendsTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../base/JavaBase/out/production/Practice/com/demo/_string/StringClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/../base/JavaBase/out/production/Practice/com/demo/_string/StringClass.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../base/JavaBase/out/production/Practice/com/demo/base/PhoneTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../base/JavaBase/out/production/Practice/com/demo/base/PhoneTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../base/JavaBase/out/production/Practice/homework/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/../base/JavaBase/out/production/Practice/homework/Test.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SSM/MyBatis/.idea/MyBatis.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SSM/generatorSqlmapCustom/generatorSqlmapCustom.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SSM/mybatis-demo/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../base/python/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,7 +53,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/class/SSM",
+    "last_opened_file_path": "D:/class/JSP",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -242,6 +189,8 @@
       <workItem from="1694594529718" duration="10000" />
       <workItem from="1695707154729" duration="132000" />
       <workItem from="1695709459795" duration="11000" />
+      <workItem from="1697708049305" duration="1156000" />
+      <workItem from="1698651023672" duration="27000" />
     </task>
     <servers />
   </component>

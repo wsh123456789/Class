@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+
+
+	<bean id="student1" class="com.wsh.bean.Student" />
+	<bean id="student2" class="com.wsh.bean.Student" />
+
+	<bean id="car1" class="com.wsh.bean.CarFactoryBean">
+		<property name="carInfo" value="红色,100,200" />
+	</bean>
+
+	<bean id="car2" class="com.wsh.bean.CarFactoryBean">
+		<property name="carInfo" value="蓝色,100,200" />
+	</bean>
+
+
+	<!-- <bean id="studentService" class="com.wsh.service.StudentServiceImpl"> 
+		 	<property name="stuDao" ref="studentDao" /> 
+		 </bean> 
+		 <bean id="studentDao" class="com.wsh.dao.StudentDao"> 
+				<property name="stuServiceImpl" ref="studentService" />
+		 </bean>
+	 -->
+		
+		
+		
+	<!-- scope="singleton" : 属性的循环依赖，单例模式 init-method="" : 初始化的时候会调用的方法 destroy-method 
+		: 销毁会调用的方法 注意：只添加方法名 -->
+
+	<bean id="user" class="com.wsh.bean.User" scope="singleton"
+		init-method="initMethod" destroy-method="destroyMethod">
+		<property name="name" value="Angus" />
+	</bean>
+
+	<!-- 后置处理器 用后置处理器也需要在xml文件中进行配置 -->
+	<bean id="myBeanPost" class="com.wsh.bean.MyBeanPost">
+
+	</bean>
+</beans>
+

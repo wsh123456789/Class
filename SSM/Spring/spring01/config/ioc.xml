@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+	<!-- 构造函数注入 -->
+	<bean id="student" class="com.wsh.bean.Student">
+		<constructor-arg name="id" value="1" />
+		<constructor-arg name="name" value="李四" />
+	</bean>
+
+	<!-- set注入 -->
+	<!-- 依靠set方法，要创建的类必须有set方法 -->
+		
+	<bean id="book1" class="com.wsh.bean.Book">
+		<property name="id" value="1"></property>
+		<property name="name" value="Java从入门到如图"></property>
+	</bean>
+	
+	<bean id="book2" class="com.wsh.bean.Book">
+		<property name="id" value="2"></property>
+		<property name="name" value="Java从删库到跑路"></property>
+	</bean>
+	
+	<bean id="book3" class="com.wsh.bean.Book">
+		<property name="id" value="3"></property>
+		<property name="name" value="Java王者归来"></property>
+	</bean>
+	
+	<!-- set注入 : list赋值 -->
+	<bean id="student2" class="com.wsh.bean.Student">
+		<property name="id" value="2"></property>
+		<property name="name" value="程序猿"></property>
+		<property name="bookList">
+		 	 	<list>
+		 	 		<ref bean="book1" />
+		 	 		<ref bean="book2" />
+		 	 		<ref bean="book3" />
+		 	 	</list>
+		</property>
+	</bean>
+</beans>
