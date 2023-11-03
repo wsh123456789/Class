@@ -8,6 +8,6 @@ import java.util.List;
 @Mapper
 public interface TestMapper {
 
-    @Select("select * from user")
+//    @Select("select * from user")
     List<UserVo> queryAll();
 }
