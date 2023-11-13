@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace即使不用到这个属性也不能为空 -->
+<mapper namespace="com.wsh.springboot.spare.mapper.SpareMapper">
+
+	<select id="queryData" resultType="com.wsh.springboot.spare.model.SpareVo">
+		select * from spare
+		<where>
+			<if test="code != null and code != ''">
+				and code = #{code}
+			</if>
+			<if test="name != null and name != ''">
+				and name = #{name}
+			</if>
+			<if test="status != null">
+				and status = #{status}
+			</if>
+		</where>
+		order by createTime desc
+		limit #{offset},#{pageSize}
+	</select>
+
+	<select id="queryCount" resultType="java.lang.Integer">
+		select count(id) from spare
+		<where>
+			<if test="code != null and code != ''">
+				and code = #{code}
+			</if>
+			<if test="name != null and name != ''">
+				and name = #{name}
+			</if>
+			<if test="status != null">
+				and status = #{status}
+			</if>
+		</where>
+	</select>
+
+	<insert id="add">
+		insert into spare(name,code,status,remark,createName,createTime,updateName,updateTime)
+		values (#{name},#{code},#{status},#{remark},#{createName},#{createTime},#{updateName},#{updateTime})
+	</insert>
+
+
+<!--	<insert id="add">-->
+<!--		insert into spare(name,code,status,remark,createName,createTime,updateName,updateTime)-->
+<!--		values (#{name},#{code},#{status},#{remark},#{createName},#{createTime},#{updateName},#{updateTime})-->
+<!--	</insert>-->
+
+<!--	<update id="update">-->
+<!--		update spare-->
+<!--		set code=#{code},-->
+<!--			name=#{name},-->
+<!--			status=#{status},-->
+<!--			remark=#{remark},-->
+<!--			updateName=#{updateName},-->
+<!--			updateTime=#{updateTime}-->
+<!--		where id = #{id}-->
+<!--	</update>-->
+
+<!--	<select id="querySparePage" resultType="com.wsh.springboot.spare.model.SpareVo">-->
+<!--        select id,code,name,status,remark-->
+<!--        from spare-->
+<!--		<where>-->
+<!--			<if test="spareVo.code != null and spareVo.code != ''">-->
+<!--				and code = #{spareVo.code}-->
+<!--			</if>-->
+<!--			<if test="spareVo.name != null and spareVo.name != ''">-->
+<!--				and name = #{spareVo.name}-->
+<!--			</if>-->
+<!--			<if test="spareVo.status != null">-->
+<!--				and status = #{spareVo.status}-->
+<!--			</if>-->
+<!--		</where>-->
+<!--		order by createTime-->
+<!--        limit #{page}, #{page_count}-->
+
+<!--    </select>-->
+
+<!--    <select id="queryTotalSize" resultType="java.lang.Integer">-->
+<!--		select count(id) from spare-->
+<!--		<where>-->
+<!--			<if test="code != null and code != ''">-->
+<!--				and code = #{code}-->
+<!--			</if>-->
+<!--			<if test="name != null and name != ''">-->
+<!--				and name = #{name}-->
+<!--			</if>-->
+<!--			<if test="status != null">-->
+<!--				and status = #{status}-->
+<!--			</if>-->
+<!--		</where>-->
+<!--	</select>-->
+
+</mapper>

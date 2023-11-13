@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace即使不用到这个属性也不能为空 -->
+<mapper namespace="com.wsh.springboot.subclass.mapper.SubClassMapper">
+
+	<select id="queryData" resultType="com.wsh.springboot.subclass.model.SubClassVo">
+        select * from subclass
+		<where>
+			<if test="code != null and code != ''">
+				and code = #{code}
+			</if>
+			<if test="name != null and name != ''">
+				and name = #{name}
+			</if>
+			<if test="status != null">
+				and status = #{status}
+			</if>
+		</where>
+        order by createTime desc
+        limit #{offset},#{pageSize}
+    </select>
+
+	<select id="queryCount" resultType="java.lang.Integer">
+        select count(id) from subclass
+        <where>
+            <if test="code != null and code != ''">
+                and code = #{code}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+
+
+		<insert id="add">
+			insert into subclass(name,code,status,remark,createName,createTime,updateName,updateTime)
+			values (#{name},#{code},#{status},#{remark},#{createName},#{createTime},#{updateName},#{updateTime})
+		</insert>
+
+	<!--	<update id="update">-->
+	<!--		update subclass-->
+	<!--		set code=#{code},-->
+	<!--			name=#{name},-->
+	<!--			status=#{status},-->
+	<!--			remark=#{remark},-->
+	<!--			updateName=#{updateName},-->
+	<!--			updateTime=#{updateTime}-->
+	<!--		where id = #{id}-->
+	<!--	</update>-->
+
+	<!--	<select id="querySubClassPage" resultType="com.wsh.springboot.subclass.model.SpareVo">-->
+	<!--        select id,code,name,status,remark-->
+	<!--        from subclass-->
+	<!--		<where>-->
+	<!--			<if test="querySubClassVo.code != null and querySubClassVo.code != ''">-->
+	<!--				and code = #{querySubClassVo.code}-->
+	<!--			</if>-->
+	<!--			<if test="querySubClassVo.name != null and querySubClassVo.name != ''">-->
+	<!--				and name = #{querySubClassVo.name}-->
+	<!--			</if>-->
+	<!--			<if test="querySubClassVo.status != null">-->
+	<!--				and status = #{querySubClassVo.status}-->
+	<!--			</if>-->
+	<!--		</where>-->
+	<!--        order by createTime-->
+	<!--        limit #{page}, #{page_count}-->
+	<!--    </select>-->
+	<!--    <select id="getTotalSize" resultType="java.lang.Integer">-->
+	<!--		select count(id) from subclass-->
+	<!--		<where>-->
+	<!--			<if test="code != null and code != ''">-->
+	<!--				and code = #{code}-->
+	<!--			</if>-->
+	<!--			<if test="name != null and name != ''">-->
+	<!--				and name = #{name}-->
+	<!--			</if>-->
+	<!--			<if test="status != null">-->
+	<!--				and status = #{status}-->
+	<!--			</if>-->
+	<!--		</where>-->
+	<!--	</select>-->
+</mapper>
