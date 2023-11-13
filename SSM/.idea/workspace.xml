@@ -5,12 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f904f50c-005a-48ed-824c-e3698a6a5694" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/MyBatis/.idea/MyBatis.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/generatorSqlmapCustom/generatorSqlmapCustom.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mybatis-demo/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../base/python/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../JSP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../JSP/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SpringBoot/springboot/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringBoot/springboot/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SpringBoot/springboot/src/main/java/com/wsh/springboot/GetProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringBoot/springboot/src/main/java/com/wsh/springboot/bean/GetProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SpringBoot/springboot/src/main/java/com/wsh/springboot/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringBoot/springboot/src/main/java/com/wsh/springboot/controller/TestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SpringBoot/springboot/src/main/java/com/wsh/springboot/TestMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringBoot/springboot/src/main/java/com/wsh/springboot/mapper/TestMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SpringBoot/springboot/src/main/java/com/wsh/springboot/UserVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringBoot/springboot/src/main/java/com/wsh/springboot/bean/UserVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SpringBoot/springboot/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringBoot/springboot/src/main/resources/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SpringBoot/springboot/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringBoot/springboot/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SpringBoot/springboot/src/main/resources/mybatis/TestMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringBoot/springboot/src/main/resources/mybatis/TestMapper.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +33,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/class/JSP&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/class/SSM&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -53,6 +56,9 @@
       <workItem from="1698650846034" duration="350000" />
       <workItem from="1698651216697" duration="20000" />
       <workItem from="1698660200857" duration="265000" />
+      <workItem from="1699254975800" duration="99000" />
+      <workItem from="1699255090176" duration="12000" />
+      <workItem from="1699270765023" duration="805000" />
     </task>
     <servers />
   </component>
