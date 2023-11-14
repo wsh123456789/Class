@@ -26,7 +26,6 @@ public class ReplacementThresholdServiceImpl implements ReplacementThresholdServ
     public ResultVo queryPage(ReplacementThresholdSelectVo replacementThresholdSelectVo) {
         //查询数据
         List<ReplacementThresholdVo> replacementThresholdVoList = replacementThresholdMapper.queryData(replacementThresholdSelectVo);
-        System.out.println("-----" + replacementThresholdVoList.toString());
         for (ReplacementThresholdVo replacementThresholdVo: replacementThresholdVoList){
             if (replacementThresholdVo.getStatus()){
                 replacementThresholdVo.setIsStatus(ParamUtil.TRUE);
