@@ -31,7 +31,6 @@ public class CommonController {
     public ResultVo getLegalPersonDropDown(){
         // 从Session中获取用户id
         Integer id = 1;
-
         return commonService.queryLegalPersonListById(id);
     }
 
@@ -47,4 +46,18 @@ public class CommonController {
     public ResultVo getSubclassDropDown(String replacementCode){
         return commonService.getSubclassListByCode(replacementCode);
     }
+
+    // 库房编码下拉框
+    @GetMapping("storageSection/queryWareHouse")
+    public ResultVo queryWareHouse(){
+        return commonService.queryWareHouse();
+    }
+
+    // 库房库区编码下拉框
+    @GetMapping("StorageBin/queryStorageSection")
+    @ResponseBody
+    public ResultVo queryStorageSection(String code) {
+        return commonService.queryStorageSection(code);
+    }
+
 }

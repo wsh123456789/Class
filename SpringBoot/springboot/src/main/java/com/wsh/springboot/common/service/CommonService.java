@@ -14,4 +14,8 @@ public interface CommonService {
     ResultVo getReplacementListByCode(String legalPersonCode);
 
     ResultVo getSubclassListByCode(String replacementCode);
+
+    ResultVo queryWareHouse();
+
+    ResultVo queryStorageSection(String code);
 }

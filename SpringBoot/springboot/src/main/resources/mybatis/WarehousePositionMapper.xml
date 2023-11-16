@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace即使不用到这个属性也不能为空 -->
+<mapper namespace="com.wsh.springboot.warehouse_position.mapper.WarehousePositionMapper">
+
+
+    <select id="queryData" resultType="com.wsh.springboot.warehouse_position.model.WarehousePositionVo">
+        SELECT
+        sb.id,
+        sb.status,
+        sb.code,
+        sb.name,
+        s.id storageSectionId,
+        s.code storageSectionCode,
+        s.name storageSectionName,
+        s.remark storageSectionRemark,
+        w.id wareHouseId,
+        w.name wareHouseName,
+        w.code wareHouseCode,
+        w.remark wareHouseRemark
+        FROM storagebin sb
+        LEFT JOIN storagesection s
+        ON sb.storageSectionCode = s.code
+        LEFT JOIN warehouse w
+        ON w.code = s.wareHouseCode
+        <where>
+            <if test="code != null and code != ''">
+                and sb.code like concat("%",#{code},"%")
+            </if>
+            <if test="storageSectionCode != null and storageSectionCode != ''">
+                and storageSectionCode like concat("%",#{storageSectionCode},"%")
+            </if>
+            <if test="wareHouseCode != null and wareHouseCode != ''">
+                and wareHouseCode like concat("%",#{wareHouseCode},"%")
+            </if>
+            <if test="status != null">
+                and sb.status = #{status}
+            </if>
+        </where>
+        order by sb.createTime desc
+        limit #{offset},#{pageSize}
+    </select>
+
+    <select id="queryCount" resultType="java.lang.Integer">
+        SELECT
+        count(sb.id)
+        FROM storagebin sb
+        LEFT JOIN storagesection s
+        ON sb.storageSectionCode = s.code
+        LEFT JOIN warehouse w
+        ON w.code = s.wareHouseCode
+        <where>
+            <if test="code != null and code != ''">
+                and sb.code like concat("%",#{code},"%")
+            </if>
+            <if test="storageSectionCode != null and storageSectionCode != ''">
+                and storageSectionCode like concat("%",#{storageSectionCode},"%")
+            </if>
+            <if test="wareHouseCode != null and wareHouseCode != ''">
+                and wareHouseCode like concat("%",#{wareHouseCode},"%")
+            </if>
+            <if test="status != null">
+                and sb.status = #{status}
+            </if>
+        </where>
+	</select>
+
+    <!-- 批量添加-->
+    <insert id="add">
+        insert into storagebin(legalPersonId,code,name,storageSectionCode,createTime,createName,changeTime,changeName)
+        values
+        <foreach collection="WarehousePositionVo" item="pv" open="(" separator="),("
+                 close=")">
+            #{pv.legalPersonId},#{pv.code},#{pv.name},#{pv.storageSectionCode},#{pv.createTime},#{pv.createName},#{pv.changeTime},#{pv.changeName}
+        </foreach>
+    </insert>
+
+
+</mapper>

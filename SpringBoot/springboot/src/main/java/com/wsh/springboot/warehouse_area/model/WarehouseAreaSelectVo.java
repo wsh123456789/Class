@@ -11,6 +11,6 @@ public class WarehouseAreaSelectVo extends PageVo {
     // 库房编码
     private String wareHouseCode;
     // 库区状态
-    private String status;
+    private Boolean status;
 
 }

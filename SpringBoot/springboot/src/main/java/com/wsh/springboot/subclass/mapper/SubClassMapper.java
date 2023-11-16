@@ -21,7 +21,7 @@ public interface SubClassMapper {
     int queryByCode(@Param("code") String code, @Param("id")Integer id);
 
     @Select("select count(id) from subclass where name = #{name} and id != #{id}")
-    int queryByName(@Param("name") String code, @Param("id")Integer id);
+    int queryByName(@Param("name") String name, @Param("id")Integer id);
 
     void add(SubClassVo subClassVo);
     @Select("select * from subclass where id = #{id}")

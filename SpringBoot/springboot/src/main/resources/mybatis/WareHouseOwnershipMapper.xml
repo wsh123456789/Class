@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <!-- 管理SQL用的 -->
+ <!-- namespace即使不用到这个属性也不能为空 -->
+<mapper namespace="com.wsh.springboot.warehouseownership.mapper.WarehouseOwnershipMapper">
+
+
+    <select id="queryData" parameterType="com.wsh.springboot.warehouseownership.model.WarehouseOwnershipSelectVo" resultType="com.wsh.springboot.warehouseownership.model.WarehouseOwnershipVo">
+        SELECT w.id id ,w.code code,w.name name ,w.remark remark,s.code storageSectionCode,s.name storageSectionName,s.remark storageSectionRemark,w.status status,l.legalpersonName legalpersonName,l.legalpersonId legalpersonId
+        from warehouse w
+        LEFT JOIN storagesection s ON w.code=s.wareHouseCode
+        LEFT JOIN storagebin sb ON sb.storageSectionCode=s.code
+        LEFT JOIN legalperson l ON l.legalPersonId=sb.legalPersonId
+        <where>
+            <if test="legalPersonId !=null">
+                and l.legalPersonId like concat("%",#{legalPersonId},"%")
+            </if>
+            <if test="code !=null and code !=''">
+                and w.code like concat("%",#{code},"%")
+            </if>
+            <if test="remark !=null and remark !=''">
+                and w.remark like concat("%",#{remark},"%")
+            </if>
+            <if test="name !=null and name !=''">
+                and w.name like concat("%",#{name},"%")
+            </if>
+            <if test="status !=null">
+                and w.status=#{status}
+            </if>
+        </where>
+        order by sb.createTime desc
+        LIMIT #{offset},#{pageSize}
+    </select>
+    <select id="queryCount" resultType="java.lang.Integer">
+        SELECT count(w.id)
+        from warehouse w
+        LEFT JOIN storagesection s ON w.code=s.wareHouseCode
+        LEFT JOIN storagebin sb ON sb.storageSectionCode=s.code
+        LEFT JOIN legalperson l ON l.legalPersonId=sb.legalPersonId
+        <where>
+            <if test="legalPersonId !=null">
+                and l.legalPersonId like concat("%",#{legalPersonId},"%")
+            </if>
+            <if test="code !=null and code !=''">
+                and w.code like concat("%",#{code},"%")
+            </if>
+            <if test="remark !=null and remark !=''">
+                and w.remark like concat("%",#{remark},"%")
+            </if>
+            <if test="name !=null and name !=''">
+                and w.name like concat("%",#{name},"%")
+            </if>
+            <if test="status !=null">
+                and status=#{status}
+            </if>
+        </where>
+        order by sb.createTime desc
+        LIMIT #{offset},#{pageSize}
+    </select>
+    <select id="queryWarehouse" parameterType="com.wsh.springboot.warehouseownership.model.QueryWarehouseSelectVo" resultType="com.wsh.springboot.warehouseownership.model.WarehouseOwnershipVo">
+        select * from warehouse
+        <where>
+            <if test="name != null and name != ''">
+                and name like concat("%",#{name},"%")
+            </if>
+            <if test="code != null and code != ''">
+                and code like concat("%",#{code},"%")
+            </if>
+        </where>
+    </select>
+    <select id="queryStorageBinByWareHouseAndStorageSectionCode" parameterType="com.wsh.springboot.warehouseownership.model.WareHouseAndStorageSectionCode" resultType="com.wsh.springboot.warehouseownership.model.StorageBinVo">
+        SELECT DISTINCT sb.code,sb.name,sb.remark,sb.status
+        from storagebin sb
+        LEFT JOIN storagesection s ON sb.storageSectionCode=s.code
+        LEFT JOIN warehouse w ON w.code=s.wareHouseCode
+        where  w.code in
+            <foreach collection="warehouseCodeList" item="warehouseCode"  open="(" close=")" separator=",">
+            #{warehouseCode}
+            </foreach>
+        and s.code in
+           <foreach collection="storageSectionCodeList" item="storageSectionCode"  open="(" close=")" separator=",">
+            #{storageSectionCode}
+            </foreach>
+
+    </select>
+    <select id="queryStorageSection" parameterType="com.wsh.springboot.warehouseownership.model.WareHouseCodeAndStorageSectionName" resultType="com.wsh.springboot.storagesection.model.StorageSectionVo">
+        SELECT DISTINCT s.name,s.code,s.remark,s.status from  storagesection s
+            LEFT JOIN warehouse w ON s.wareHouseCode=w.code
+            <where> w.code in
+            <foreach collection="warehouseCodeList" item="code" open="(" close=")" separator=",">
+                #{code}
+            </foreach>
+                <if test="storageSectionName!= null and storageSectionName != ''">
+                    and s.name=#{storageSectionName}
+                </if>
+            </where>
+    </select>
+    <update id="delete">
+        UPDATE storagebin set legalPersonId=0 where legalPersonId=#{legalPersonId}
+    </update>
+    <update id="add">
+        UPDATE storagebin set legalPersonId=#{legalPersonId} where code in
+        <foreach collection="codeList" item="code" open="(" close=")" separator=",">
+        #{code}
+    </foreach>
+    </update>
+</mapper>

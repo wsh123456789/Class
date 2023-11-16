@@ -20,7 +20,7 @@ public class ParamUtil {
     public final static String UPDATE_MESSAGE_NOTFOUND = "要修改的对象信息不存在";
     public final static String UPDATE_DISABLED = "必须是禁用状态才能修改";
     public final static String NAME_REPEAT = "名称已存在";
-    public final static String CODE_REPEAT = "编码已存在";
+    public final static String CODE_REPEAT = "编码重复";
     public final static String OPEN = "启用";
     public final static String CLOSE = "禁用";
     public final static String MESSAGE_IS_UPDATED = "数据已被修改，请刷新界面后重试";
@@ -29,4 +29,11 @@ public class ParamUtil {
 
     public final static String CHANGE_MAN = "张三";
     public final static int MAX_THRESHOLD = 9999;
+
+    public final static String WAREHOUSE = "库房";
+
+    public final static String WAREHOUSE_AREA = "库区";
+
+    public final static String WAREHOUSE_POSITION = "库位";
+    public final static String WAREHOUSE_TAG = "库房标识";
 }

@@ -1,10 +1,7 @@
 package com.wsh.springboot.common.service.impl;
 
 import com.wsh.springboot.common.mapper.CommonMapper;
-import com.wsh.springboot.common.model.LegalPersonVo;
-import com.wsh.springboot.common.model.ReplacementVo;
-import com.wsh.springboot.common.model.StatusVo;
-import com.wsh.springboot.common.model.SubclassVo;
+import com.wsh.springboot.common.model.*;
 import com.wsh.springboot.common.service.CommonService;
 import com.wsh.springboot.enumpackage.CurrencyEnum;
 import com.wsh.springboot.enumpackage.StatusEnum;
@@ -63,5 +60,19 @@ public class CommonServiceImpl implements CommonService {
     public ResultVo getSubclassListByCode(String replacementCode) {
         List<SubclassVo> subclassVoList = commonMapper.getSubclassListByCode(replacementCode);
         return ResultBuildVo.success(subclassVoList);
+    }
+
+    // 获取库房编码下拉框
+    @Override
+    public ResultVo queryWareHouse() {
+        List<WareHouseVo> wareHouseVos = commonMapper.queryWareHouse();
+        return ResultBuildVo.success(wareHouseVos);
+    }
+
+    // 获取库区编码下拉框
+    @Override
+    public ResultVo queryStorageSection(String code) {
+        List<WareHouseAreaVo> wareHouseAreaVos = commonMapper.queryStorageSection(code);
+        return ResultBuildVo.success(wareHouseAreaVos);
     }
 }
