@@ -98,7 +98,11 @@ public class WarehouseAreaServiceImpl implements WarehouseAreaService {
         if (version == 0){
             return ResultBuildVo.error(ParamUtil.MESSAGE_IS_UPDATED);
         }
-        //
+        // 删除库区原有的业务属性
+        warehouseAreaMapper.deleteBusinessAttribute(warehouseAreaUpdateVo.getCode());
+        // 把业务属性添加到连接表;
+        warehouseAreaMapper.updateBusinessAttribute(warehouseAreaUpdateVo);
+
         return ResultBuildVo.success();
     }
 

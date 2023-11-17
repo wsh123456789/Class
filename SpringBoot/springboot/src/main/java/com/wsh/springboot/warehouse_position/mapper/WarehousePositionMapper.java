@@ -4,6 +4,7 @@ import com.wsh.springboot.warehouse_position.model.WarehousePositionSelectVo;
 import com.wsh.springboot.warehouse_position.model.WarehousePositionVo;
 import org.apache.ibatis.annotations.*;
 
+import java.util.HashSet;
 import java.util.List;
 
 @Mapper
@@ -19,8 +20,9 @@ public interface WarehousePositionMapper {
     @Select("select id,legalPersonId from storagebin where code=#{code}")
     WarehousePositionVo queryByCode(String code);
 
-    @Delete("delete from storagebin where code=#{code}")
+    @Delete("delete from storagebin where storageSectionCode=#{code}")
     void deleteByCode(String code);
+
     @Select("select count(id) from storagebin where name=#{name}")
     int queryByName(String name);
 
@@ -36,4 +38,10 @@ public interface WarehousePositionMapper {
 
     @Update("update storagebin set name=#{name} where id=#{id}")
     Integer update(WarehousePositionVo warehousePositionVo);
+
+    List<WarehousePositionVo> queryByCodeList(@Param("codes") HashSet<String> codes);
+
+    List<String> queryRepeatCodes(@Param("codes") HashSet<String> codes);
+
+    List<String> queryRepeatNames(@Param("names") HashSet<String> names);
 }

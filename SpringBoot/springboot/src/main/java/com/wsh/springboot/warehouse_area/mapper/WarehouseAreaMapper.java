@@ -1,9 +1,6 @@
 package com.wsh.springboot.warehouse_area.mapper;
 
-import com.wsh.springboot.warehouse_area.model.BusinessAttributeVo;
-import com.wsh.springboot.warehouse_area.model.WarehouseAreaAddVo;
-import com.wsh.springboot.warehouse_area.model.WarehouseAreaSelectVo;
-import com.wsh.springboot.warehouse_area.model.WarehouseAreaVo;
+import com.wsh.springboot.warehouse_area.model.*;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -51,4 +48,6 @@ public interface WarehouseAreaMapper {
 
     @Update("update storagesection set status=#{status} where id=#{id}")
     Integer updateStatus(WarehouseAreaVo warehouseAreaVo1);
+
+    void updateBusinessAttribute(WarehouseAreaUpdateVo warehouseAreaUpdateVo);
 }

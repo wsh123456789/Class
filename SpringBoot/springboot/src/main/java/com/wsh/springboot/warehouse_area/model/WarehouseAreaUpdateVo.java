@@ -12,6 +12,8 @@ public class WarehouseAreaUpdateVo {
     private Integer id;
     // 库区状态
     private Boolean status;
+    // 库区code
+    private String code;
     // 库区名称
     @NotBlank(message = ParamUtil.WAREHOUSE_AREA + ParamUtil.NAME_NOTNULL)
     private String name;

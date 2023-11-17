@@ -69,6 +69,15 @@
         </foreach>
     </insert>
 
+    <insert id="updateBusinessAttribute">
+        insert into area_attribute(storageSectionCode,attributeCode)
+        values
+        <foreach collection="businessAttribute" item="attributeCode" open="(" separator="),("
+                 close=")">
+            #{code},#{attributeCode}
+        </foreach>
+    </insert>
+
 
     <update id="update">
         update storagesection
@@ -81,6 +90,7 @@
             vipStorageSection=#{vipStorageSection}
         where id = #{id}
     </update>
+
 
 
     <select id="queryStorageSectionById" resultType="com.wsh.springboot.warehouse_area.model.WarehouseAreaVo">

@@ -68,6 +68,7 @@
         </where>
 	</select>
 
+
     <!-- 批量添加-->
     <insert id="add">
         insert into storagebin(legalPersonId,code,name,storageSectionCode,createTime,createName,changeTime,changeName)
@@ -78,5 +79,25 @@
         </foreach>
     </insert>
 
-
+    <select id="queryByCodeList" resultType="com.wsh.springboot.warehouse_position.model.WarehousePositionVo">
+        select * from storagebin where code in
+        <foreach collection="codes" item="code" open="(" separator=","
+                 close=")">
+            #{code}
+        </foreach>
+    </select>
+    <select id="queryRepeatCodes" resultType="java.lang.String">
+        select code from storagebin where code in
+        <foreach collection="codes" item="code" open="(" separator=","
+                 close=")">
+            #{code}
+        </foreach>
+    </select>
+    <select id="queryRepeatNames" resultType="java.lang.String">
+        select code from storagebin where name in
+        <foreach collection="names" item="name" open="(" separator=","
+                 close=")">
+            #{name}
+        </foreach>
+    </select>
 </mapper>
