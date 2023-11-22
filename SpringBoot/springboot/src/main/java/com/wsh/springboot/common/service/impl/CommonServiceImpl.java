@@ -3,8 +3,7 @@ package com.wsh.springboot.common.service.impl;
 import com.wsh.springboot.common.mapper.CommonMapper;
 import com.wsh.springboot.common.model.*;
 import com.wsh.springboot.common.service.CommonService;
-import com.wsh.springboot.enumpackage.CurrencyEnum;
-import com.wsh.springboot.enumpackage.StatusEnum;
+import com.wsh.springboot.enumpackage.*;
 import com.wsh.springboot.util.ResultBuildVo;
 import com.wsh.springboot.util.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,23 +29,49 @@ public class CommonServiceImpl implements CommonService {
     @Override
     public ResultVo getPullDownList(List<String> keyList) {
         Map<String,List<StatusVo>> listMap = new HashMap<>();
+        // 状态列表
         List<StatusVo> statusVoList = new ArrayList<>();
         for (StatusEnum statusEnum : StatusEnum.values()){
             StatusVo statusVo = new StatusVo(statusEnum.getValue(), statusEnum.getStatusName());
             statusVoList.add(statusVo);
         }
         listMap.put("status",statusVoList);
-        List<StatusVo> statusVoList2 = new ArrayList<>();
+        // 询价币别列表
+        List<StatusVo> currencyVoList = new ArrayList<>();
         for (CurrencyEnum currencyEnum: CurrencyEnum.values()){
             StatusVo statusVo = new StatusVo(currencyEnum.getValue(),currencyEnum.getName());
-            statusVoList2.add(statusVo);
+            currencyVoList.add(statusVo);
         }
-        listMap.put("currency",statusVoList2);
+        listMap.put("currencyCode",currencyVoList);
+        // 询价类型列表
+        List<StatusVo> typeVoList = new ArrayList<>();
+        for (TypeEnum typeEnum: TypeEnum.values()){
+            StatusVo statusVo = new StatusVo(typeEnum.getValue(),typeEnum.getName());
+            typeVoList.add(statusVo);
+        }
+        listMap.put("type",typeVoList);
+        // 是否税收列表
+        List<StatusVo> isTaxVoList = new ArrayList<>();
+        for (TaxEnum taxEnum: TaxEnum.values()){
+            StatusVo statusVo = new StatusVo(taxEnum.getValue(),taxEnum.getName());
+            isTaxVoList.add(statusVo);
+        }
+        listMap.put("isTax",isTaxVoList);
+        // 询价状态列表
+        List<StatusVo> inquiryStatusList = new ArrayList<>();
+        for (InquiryStatusEnum inquiryStatusEnum: InquiryStatusEnum.values()){
+            StatusVo statusVo = new StatusVo(inquiryStatusEnum.getValue(),inquiryStatusEnum.getName());
+            inquiryStatusList.add(statusVo);
+        }
+        listMap.put("inquiryStatus",inquiryStatusList);
+
         Map<String,List<StatusVo>> listMapNew = new HashMap<>();
         for (String key:keyList) {
             List<StatusVo> statusVoList1 = listMap.get(key);
             listMapNew.put(key,statusVoList1);
         }
+
+
         return ResultBuildVo.success(listMapNew);
     }
 

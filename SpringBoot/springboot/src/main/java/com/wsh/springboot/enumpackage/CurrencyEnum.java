@@ -3,7 +3,7 @@ package com.wsh.springboot.enumpackage;
 import com.wsh.springboot.util.ParamUtil;
 
 public enum CurrencyEnum {
-    QIYONG(ParamUtil.ONE,"人民币"),JINYONG(ParamUtil.ZERO,"美元"),QUANBU(3,"英镑");
+    RMB(ParamUtil.ZERO,ParamUtil.RMB),DOLLAR(ParamUtil.ONE,ParamUtil.DOLLAR),POUND(ParamUtil.TWO,ParamUtil.POUND);
 
     private Integer value;
     private String name;

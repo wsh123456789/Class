@@ -178,7 +178,7 @@ public class WarehousePositionServiceImpl implements WarehousePositionService {
         if (version == 0) {
             return ResultBuildVo.error(ParamUtil.MESSAGE_IS_UPDATED);
         }
-        //
+
         return ResultBuildVo.success();
     }
 }

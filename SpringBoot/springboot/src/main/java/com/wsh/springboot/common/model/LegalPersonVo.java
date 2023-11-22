@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class LegalPersonVo {
 
-    private String legalPersonId;
+    private Integer legalPersonId;
 
     private String legalPersonName;
 

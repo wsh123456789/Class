@@ -1,5 +1,6 @@
 package com.wsh.springboot.common.controller;
 
+import com.wsh.springboot.common.model.GetNameTimeIdVo;
 import com.wsh.springboot.common.service.CommonService;
 
 import com.wsh.springboot.util.ResultBuildVo;
@@ -8,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 
 @RestController
@@ -58,6 +62,16 @@ public class CommonController {
     @ResponseBody
     public ResultVo queryStorageSection(String code) {
         return commonService.queryStorageSection(code);
+    }
+
+    // 询价人员回显
+    @GetMapping("plan/getUser")
+    public ResultVo getUser(){
+        GetNameTimeIdVo nameTimeIdVo = new GetNameTimeIdVo();
+        nameTimeIdVo.setCreateName("张三");
+        nameTimeIdVo.setCreateTime(new Date());
+
+        return ResultBuildVo.success(nameTimeIdVo);
     }
 
 }
