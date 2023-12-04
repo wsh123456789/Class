@@ -33,8 +33,8 @@ public class InquiryAuditorController {
         if (bindingResult.hasErrors()){
             return ResultBuildVo.error(bindingResult.getFieldError().getDefaultMessage());
         }
-        System.out.println(shenPiVo);
-//        return inquiryAuditorService.searchShenPi(shenPiVo);
-        return null;
+//        System.out.println(shenPiVo);
+        return inquiryAuditorService.searchShenPi(shenPiVo);
+//        return null;
     }
 }

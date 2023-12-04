@@ -196,7 +196,7 @@
 		</foreach>
 	</select>
 	<select id="querySpareForSupplier" resultType="java.lang.String">
-		SELECT DISTINCT  supplierCode
+		SELECT DISTINCT supplierCode
 		FROM replacement_supplier
 		WHERE replacementCode IN
 		<foreach collection="codeList" item="code" open="(" separator=","

@@ -17,9 +17,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.BindingResult;
 
-import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -216,20 +214,14 @@ public class InquirySheetServiceImpl implements InquirySheetService {
         // 验证备件是否存在
         List<String> newCodeList = inquirySheetMapper.queryCodeList(codeList);
         if (newCodeList.size() != codeList.size()) {
-            for (String code : codeList) {
-                if (!newCodeList.contains(code)) {
-                    return ResultBuildVo.error(ParamUtil.REPLACEMENT + code + ParamUtil.NOT_FOUNT);
-                }
-            }
+           codeList.removeAll(newCodeList);
+           return ResultBuildVo.error(ParamUtil.REPLACEMENT + codeList.toString() + ParamUtil.NOT_FOUNT);
         }
         // 验证供应商是否存在
         List<String> newSupplierList = inquirySheetMapper.querySupplierCodeList(supplierList);
         if (newSupplierList.size() != supplierList.size()) {
-            for (String code : supplierList) {
-                if (!newSupplierList.contains(code)) {
-                    return ResultBuildVo.error(ParamUtil.REPLACEMENT + code + ParamUtil.NOT_FOUNT);
-                }
-            }
+            supplierList.removeAll(newSupplierList);
+            return ResultBuildVo.error(ParamUtil.REPLACEMENT + supplierList.toString() + ParamUtil.NOT_FOUNT);
         }
         // 验证备件和供应商的空闲情况
         ResultVo flag = judgeFree(codeList, supplierList);
@@ -245,7 +237,6 @@ public class InquirySheetServiceImpl implements InquirySheetService {
         List<String> spareForSupplier = inquirySheetMapper.querySpareForSupplier(codeList);
         // 获取供应商可以生产的所有备件
         List<String> spareAll = inquirySheetMapper.querySupplierForSpare(supplierList);
-        System.out.println("===" + spareAll);
         // 存储没有被用到的供应商code
         List<String> freeSupplier = new ArrayList<>();
         // 遍历前端传来的供应商列表,对比是否需要,不需要存入空闲列表
@@ -265,7 +256,6 @@ public class InquirySheetServiceImpl implements InquirySheetService {
                 freeSpare.add(code);
             }
         }
-        System.out.println(freeSpare);
         if (freeSpare.size() != 0){
             return ResultBuildVo.error(freeSpare.toString() + ParamUtil.NOT_SPARE_FOR_SUPPLIER + spareForSupplier.toString());
         }
@@ -275,7 +265,6 @@ public class InquirySheetServiceImpl implements InquirySheetService {
             return ResultBuildVo.error(freeSupplier.toString() + ParamUtil.NOT_SUPPLIER_FOR_SPARE + spareNeed.toString());
         }
         return null;
-
     }
 
     /**
@@ -317,20 +306,19 @@ public class InquirySheetServiceImpl implements InquirySheetService {
             return ResultBuildVo.error(ParamUtil.TIME_ERROR);
         }
         // 6.验证询价数量，moq，交货周期是否大于零
-        for (InquiryDetails inquiryDetails : createInquirySheetAddVo.getInquiryDetailsList()) {
-            if (inquiryDetails.getInquiryQty() == null || inquiryDetails.getInquiryQty() == 0) {
-                return ResultBuildVo.error(ParamUtil.INQUIRY_COUNT + ParamUtil.NOT_ZERO);
-            }
-            if (inquiryDetails.getInquiryQty() == null || inquiryDetails.getMoq() == 0) {
-                return ResultBuildVo.error(ParamUtil.MOQ + ParamUtil.NOT_ZERO);
-            }
-            if (inquiryDetails.getInquiryQty() == null || inquiryDetails.getDeliveryCycle() == 0) {
-                return ResultBuildVo.error(ParamUtil.DELIVERY_CYCLE + ParamUtil.NOT_ZERO);
-            }
-        }
+//        for (InquiryDetails inquiryDetails : createInquirySheetAddVo.getInquiryDetailsList()) {
+//            if (inquiryDetails.getInquiryQty() == null || inquiryDetails.getInquiryQty() == 0) {
+//                return ResultBuildVo.error(ParamUtil.INQUIRY_COUNT + ParamUtil.NOT_ZERO);
+//            }
+//            if (inquiryDetails.getInquiryQty() == null || inquiryDetails.getMoq() == 0) {
+//                return ResultBuildVo.error(ParamUtil.MOQ + ParamUtil.NOT_ZERO);
+//            }
+//            if (inquiryDetails.getInquiryQty() == null || inquiryDetails.getDeliveryCycle() == 0) {
+//                return ResultBuildVo.error(ParamUtil.DELIVERY_CYCLE + ParamUtil.NOT_ZERO);
+//            }
+//        }
         return null;
     }
-
 
     /**
      * 生成订单号

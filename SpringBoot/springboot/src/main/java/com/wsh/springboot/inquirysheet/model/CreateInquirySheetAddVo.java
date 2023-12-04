@@ -3,6 +3,7 @@ package com.wsh.springboot.inquirysheet.model;
 import com.wsh.springboot.util.ParamUtil;
 import lombok.Data;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -41,9 +42,11 @@ public class CreateInquirySheetAddVo {
     // 询价单号
     private String requestForQuotationId;
     // 待询价明细表
+    @Valid
     @NotEmpty(message = ParamUtil.INQUIRY_DETAILS)
     private List<InquiryDetails> inquiryDetailsList;
     // 待报价供应商表
+    @Valid
     @NotEmpty(message = ParamUtil.SUPPLIER_DETAILS)
     private List<SupplierDetails> supplierDetailsList;
 
