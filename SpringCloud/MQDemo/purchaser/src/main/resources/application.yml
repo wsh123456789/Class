@@ -1,0 +1,18 @@
+server:
+  port: 6010
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.137.1:3306/mqdemo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
+    username: root
+    password: wusihao.@123
+  rabbitmq:
+    host: localhost
+    username: guest
+    password: guest
+    port: 5672
+mybatis:
+  mapper-locations: classpath:mybatis/*Mapper.xml
+
+
+

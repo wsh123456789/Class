@@ -6,6 +6,9 @@ spring:
     url: jdbc:mysql://192.168.137.1:3306/procurement?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
     username: root
     password: wusihao.@123
+  redis:
+    host: localhost
+    port: 6379
 userinfo:
   name: Angus
   age: 22

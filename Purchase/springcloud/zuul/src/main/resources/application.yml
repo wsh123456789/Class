@@ -1,0 +1,18 @@
+server:
+  port: 9091
+spring:
+  application:
+    name: zuul
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: 418ec664-d92e-4cd8-a3d4-c6e8565a55f5
+zuul:
+  routes:
+    basics: /basics/*
+    inquiry: /inquiry/*
+  host:
+    #解决504问题
+    connect-timeout-millis: 60000
+#    consumer: /bbb/*

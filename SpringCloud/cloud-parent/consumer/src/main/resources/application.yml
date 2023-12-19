@@ -1,0 +1,16 @@
+# 应用服务 WEB 访问端口
+server:
+  port: 8010
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8080/eureka
+spring:
+  application:
+    name: consumer
+hystrix:
+  circuitBreaker:
+    enabled: true
+    requestVolumeThreshold: 1
+    sleepWindowInMilliseconds: 1000
+    errorThresholdPercentage: 60

@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace即使不用到这个属性也不能为空 -->
+<mapper namespace="com.wsh.basics.inquirysheet.mapper.InquirySheetMapper">
+	<insert id="add">
+        insert into inquiry(
+                            requestForQuotationId,
+                             startTime,
+                             endTime,
+                             legalPersonId,
+                             createTime,
+                             createName,
+                             changeTime,
+                             changeName,
+                             type,
+                             isTax,
+                             currencyCode,
+                            status)
+                   values
+                       (
+                       #{requestForQuotationId},
+                       #{startTime},
+                       #{endTime},
+                       #{legalPersonId},
+                       #{createTime},
+                       #{createName},
+                       #{changeTime},
+                       #{changeName},
+                       #{type},
+                       #{isTax},
+                       #{currencyCode},
+					   #{inquiryStatus}
+                       )
+    </insert>
+	<insert id="addForSpare">
+		insert into inquiry_replacement(
+			requestForQuotationId,
+			replacementCode,
+		    inquiryQty,
+		    moq,
+		    deliveryCycle)
+		values
+		<foreach collection="inquiryDetailsList" item="i" open="(" separator="),("
+				 close=")">
+			#{requestForQuotationId},#{i.spareCoding},#{i.inquiryQty},#{i.moq},#{i.deliveryCycle}
+		</foreach>
+	</insert>
+	<insert id="addForSupplier">
+		insert into inquiry_supplier(
+		requestForQuotationId,
+		supplierCode)
+		values
+		<foreach collection="supplierDetailsList" item="s" open="(" separator="),("
+				 close=")">
+			#{requestForQuotationId},#{s.vendorCode}
+		</foreach>
+	</insert>
+
+	<select id="selectMaterial" resultType="com.wsh.basics.inquirysheet.model.CreateInquirySheetVo">
+		select replacementCode code,replacementName name,unit from replacement
+		<where>
+			<if test="code != null and code != ''">
+				and replacementCode like concat("%",#{code},"%")
+			</if>
+			<if test="name != null and name != ''">
+				and replacementName like concat("%",#{name},"%")
+			</if>
+		</where>
+		order by createTime desc
+		limit #{offset},#{pageSize}
+	</select>
+	<select id="queryReplacementCount" resultType="java.lang.Integer">
+		select COUNT(replacementId) from replacement
+		<where>
+			<if test="code != null and code != ''">
+				and replacementCode like concat("%",#{code},"%")
+			</if>
+			<if test="name != null and name != ''">
+				and replacementName like concat("%",#{name},"%")
+			</if>
+		</where>
+	</select>
+	<select id="queryData" resultType="com.wsh.basics.inquirysheet.model.InquirySelectVo">
+		SELECT DISTINCT i.requestForQuotationId, i.createTime, i.startTime, i.endTime, i.status inquiryStatus,i.createName, l.legalPersonName
+		FROM inquiry i
+		LEFT JOIN legalperson l ON i.legalPersonId = l.id
+		LEFT JOIN inquiry_supplier ins ON i.requestForQuotationId = ins.requestForQuotationId
+		<where>
+			<if test="legalPersonId != null">
+				and i.legalPersonId = #{legalPersonId}
+			</if>
+			<if test="requestForQuotationId != null and requestForQuotationId != ''">
+				and i.requestForQuotationId like concat('%',#{requestForQuotationId},'%')
+			</if>
+			<if test="supplierCode != null and supplierCode != ''">
+				and ins.supplierCode = #{supplierCode}
+			</if>
+			<if test="type != null and type != ''">
+				and i.type = #{type}
+			</if>
+			<if test="inquiryStatus != null">
+				and i.status = #{inquiryStatus}
+			</if>
+			<if test="createStartTime != null">
+				and i.createTime &gt;= #{createStartTime}
+			</if>
+			<if test="createEndTime != null">
+				and  i.createTime &lt;= #{createEndTime}
+			</if>
+			<if test="startTime != null">
+				and i.startTime &gt;= #{startTime}
+			</if>
+			<if test="endTime != null">
+				and  i.endTime &lt;= #{endTime}
+			</if>
+		</where>
+		order by createTime desc
+		limit #{offset}, #{pageSize}
+	</select>
+	<select id="queryCount" resultType="java.lang.Integer">
+		SELECT count(DISTINCT i.id)
+		FROM inquiry i
+		LEFT JOIN legalperson l ON i.legalPersonId = l.id
+		LEFT JOIN inquiry_supplier ins ON i.requestForQuotationId = ins.requestForQuotationId
+		<where>
+			<if test="legalPersonId != null">
+				and i.legalPersonId = #{legalPersonId}
+			</if>
+			<if test="requestForQuotationId != null and requestForQuotationId != ''">
+				and i.requestForQuotationId like concat('%',#{requestForQuotationId},'%')
+			</if>
+			<if test="supplierCode != null and supplierCode != ''">
+				and ins.supplierCode = #{supplierCode}
+			</if>
+			<if test="type != null and type != ''">
+				and i.type = #{type}
+			</if>
+			<if test="inquiryStatus != null">
+				and i.status = #{inquiryStatus}
+			</if>
+			<if test="createStartTime != null">
+				and i.createTime &gt;= #{createStartTime}
+			</if>
+			<if test="createEndTime != null">
+				and  i.createTime &lt;= #{createEndTime}
+			</if>
+			<if test="startTime != null">
+				and i.startTime &gt;= #{startTime}
+			</if>
+			<if test="endTime != null">
+				and  i.endTime &lt;= #{endTime}
+			</if>
+		</where>
+	</select>
+
+	<update id="modifyState">
+		UPDATE inquiry SET status=0 WHERE requestForQuotationId=#{requestForQuotationId}
+	</update>
+
+	<update id="update">
+		UPDATE inquiry SET
+		                    status=#{inquiryStatus},
+							startTime=#{startTime},
+							endTime=#{endTime},
+							legalPersonId=#{legalPersonId},
+							changeTime=#{changeTime},
+							changeName=#{changeName},
+							type=#{type},
+							isTax=#{isTax},
+							currencyCode=#{currencyCode}
+		WHERE requestForQuotationId=#{requestForQuotationId}
+	</update>
+
+	<select id="queryStatus" resultType="java.lang.Integer">
+		select status from inquiry where requestForQuotationId=#{requestForQuotationId}
+	</select>
+	<select id="queryCodeList" resultType="java.lang.String">
+		select replacementCode
+		from replacement
+		where replacementCode in
+		<foreach collection="codeList" item="code" open="(" separator=","
+				 close=")">
+			#{code}
+		</foreach>
+	</select>
+	<select id="querySupplierCodeList" resultType="java.lang.String">
+		select DISTINCT code
+		from supplier
+		where code in
+		<foreach collection="codeList" item="code" open="(" separator=","
+				 close=")">
+			#{code}
+		</foreach>
+	</select>
+	<select id="querySpareForSupplier" resultType="java.lang.String">
+		SELECT DISTINCT supplierCode
+		FROM replacement_supplier
+		WHERE replacementCode IN
+		<foreach collection="codeList" item="code" open="(" separator=","
+				 close=")">
+			#{code}
+		</foreach>
+	</select>
+	<select id="querySupplierForSpare" resultType="java.lang.String">
+		SELECT DISTINCT replacementCode
+		FROM replacement_supplier
+		WHERE supplierCode IN
+		<foreach collection="codeList" item="code" open="(" separator=","
+				 close=")">
+			#{code}
+		</foreach>
+	</select>
+	<select id="querySeeData" resultType="com.wsh.basics.inquirysheet.model.SeeVo">
+		SELECT
+			i.status inquiryStatus,
+			i.requestForQuotationId,
+			i.createTime,
+			i.createName,
+			l.legalPersonName,
+			i.type,
+			i.currencyCode,
+			i.isTax,
+			i.startTime,
+			i.endTime
+		FROM inquiry i
+		LEFT JOIN legalperson l
+		ON l.id = i.legalPersonId
+		WHERE i.requestForQuotationId = #{requestForQuotationId}
+	</select>
+	<select id="querySeeInquiryData" resultType="com.wsh.basics.inquirysheet.model.InquiryDetails">
+		SELECT
+			i.currencyCode,
+			r.unit measurementUnit,
+			r.replacementCode spareCoding,
+			r.replacementName spareName,
+			i.type,
+			ir.inquiryQty,
+			ir.moq,
+			ir.deliveryCycle
+		FROM inquiry_replacement ir
+				 LEFT JOIN replacement r
+						   ON r.replacementCode = ir.replacementCode
+				 LEFT JOIN inquiry i
+						   ON i.requestForQuotationId = ir.requestForQuotationId
+		WHERE i.requestForQuotationId = #{requestForQuotationId}
+	</select>
+	<select id="querySeeSupplierData" resultType="com.wsh.basics.inquirysheet.model.SupplierDetails">
+        SELECT s.code vendorCode,
+               s.name vendor
+        FROM inquiry_supplier ins
+                 LEFT JOIN supplier s
+                           ON s.code = ins.supplierCode
+        WHERE ins.requestForQuotationId = #{requestForQuotationId}
+    </select>
+
+
+</mapper>

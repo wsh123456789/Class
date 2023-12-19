@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace即使不用到这个属性也不能为空 -->
+<mapper namespace="com.wsh.purchaser.mapper.PurchaserMapper">
+
+    <insert id="addCount">
+        insert into pruchaser_spare(orderCode,spareCode,count) values
+        <foreach collection="spareList" item="spare" open="("
+                 separator="),(" close=")">
+            #{orderCode},#{spare.spareCode},#{spare.count}
+        </foreach>
+    </insert>
+    <update id="check">
+        update order_purchaser set status=2,mqStatus=1 where orderCode=#{orderCode}
+    </update>
+
+</mapper>

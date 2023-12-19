@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace即使不用到这个属性也不能为空 -->
+<mapper namespace="com.wsh.supplier.mapper.SupplierMapper">
+
+    <resultMap type="com.wsh.model.OutTimeVo" id="outTime">
+        <result column="orderCode" property="orderCode" />
+        <collection property="spareVos" ofType="com.wsh.model.SpareVo">
+            <result column="spareCode" property="spareCode" />
+            <result column="count" property="count" />
+        </collection>
+    </resultMap>
+
+    <select id="queryOutTime" resultMap="outTime">
+        select os.orderCode,sp.spareCode,sp.count
+        from order_supplier os
+        left join supplider_spare sp
+        on os.orderCode = sp.orderCode
+        where #{createTime} > unix_timestamp(os.createTime)*1000 and status = 1;
+    </select>
+
+    <update id="updateInventory">
+        <foreach collection="spares" item="spare" separator=";" >
+            update inventory set occupyCount=#{spare.occupyCount} where spareCode=#{spare.spareCode}
+        </foreach>
+    </update>
+    <delete id="deleteByCode">
+        delete from inventory
+        where spareCode in
+        <foreach collection="spareList" item="spare" open="("
+                 separator="," close=")">
+            #{spare.spareCode}
+        </foreach>
+    </delete>
+    <select id="queryInventory" resultType="com.wsh.model.OrderVo">
+        select spareCode,count,occupyCount
+        from inventory
+        where spareCode in
+        <foreach collection="spareList" item="spare" open="("
+                 separator="," close=")">
+            #{spare.spareCode}
+        </foreach>
+    </select>
+
+
+    <insert id="addCount">
+        insert into supplider_spare(orderCode,spareCode,count) values
+        <foreach collection="spareList" item="spare" open="("
+                 separator="),(" close=")">
+            #{orderCode},#{spare.spareCode},#{spare.count}
+        </foreach>
+    </insert>
+    <update id="subInventory">
+        <foreach collection="spareList" item="spare" separator=";" >
+          update inventory set count=count-#{spare.count},occupyCount=occupyCount-#{spare.count} where spareCode=#{spare.spareCode}
+        </foreach>
+    </update>
+
+    <update id="free">
+        <foreach collection="outTimeVos" item="outTime">
+            update order_supplier set status = 0 where orderCode = #{outTime.orderCode};
+            <foreach collection="outTime.spareVos" item="spare">
+                <if test="spare != null">
+                    update inventory set occupyCount=occupyCount-#{spare.count} where spareCode=#{spare.spareCode};
+                </if>
+            </foreach>
+        </foreach>
+    </update>
+
+</mapper>

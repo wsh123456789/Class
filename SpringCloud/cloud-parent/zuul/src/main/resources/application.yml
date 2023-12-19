@@ -1,0 +1,14 @@
+server:
+  port: 1020
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8080/eureka
+spring:
+  application:
+    name: zuul
+zuul:
+  routes:
+    provider: /aaa/*
+  ignored-patterns:
+    - /provider/testProvider

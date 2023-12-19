@@ -3,10 +3,11 @@ package com.wsh.springboot.subclass.model;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class SubClassVo {
+public class SubClassVo implements Serializable {
     @ApiModelProperty(value = "备件id")
     private Integer id;
     @ApiModelProperty(value = "备件姓名")

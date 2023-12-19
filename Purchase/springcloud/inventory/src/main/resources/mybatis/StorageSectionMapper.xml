@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <!-- 管理SQL用的 -->
+ <!-- namespace即使不用到这个属性也不能为空 -->
+<mapper namespace="com.example.inventory.storagesection.mapper.StorageSectionMapper">
+    <select id="queryData" parameterType="com.example.inventory.storagesection.model.StorageSectionSelectVo" resultType="com.example.inventory.storagesection.model.StorageSectionVo">
+       select * from warehouseattribute
+        <where>
+            <if test="name !=null and name !=''">
+                and name like concat("%",#{name},"%")
+            </if>
+            <if test="code !=null and code !=''">
+                and code like concat("%",#{code},"%")
+            </if>
+            <if test="remark !=null and remark !=''">
+                and remark like concat("%",#{remark},"%")
+            </if>
+            <if test="status !=null">
+                and status=#{status}
+            </if>
+        </where>
+        order by createTime desc
+        LIMIT #{offset},#{pageSize}
+    </select>
+    <select id="queryCount" resultType="java.lang.Integer">
+        select count(id) from warehouseattribute
+        <where>
+            <if test="name !=null and name !=''">
+                and name like concat("%",#{name},"%")
+            </if>
+            <if test="code !=null and code !=''">
+                and code like concat("%",#{code},"%")
+            </if>
+            <if test="remark !=null and remark !=''">
+                and remark like concat("%",#{remark},"%")
+            </if>
+            <if test="status !=null">
+                and status=#{status}
+            </if>
+        </where>
+    </select>
+</mapper>

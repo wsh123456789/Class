@@ -1,0 +1,10 @@
+# 应用服务 WEB 访问端口
+server:
+  port: 7011
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8080/eureka
+spring:
+  application:
+    name: provider
